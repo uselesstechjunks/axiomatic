@@ -1,5 +1,5 @@
 """
-SelfStudyGuide
+Axiomatic
 """
 
 __version__ = "0.1.0"
@@ -21,3 +21,4 @@ def get_random_ingredients(kind=None):
     :rtype: list[str]
     """
     return ["shells", "gorgonzola", "parsley"]
+
