@@ -46,6 +46,6 @@ This refers to the application to *real-world* problems. For example, we can com
 	prob/index
 	stat/index
 	optim
-	themes
 	north
+
 
