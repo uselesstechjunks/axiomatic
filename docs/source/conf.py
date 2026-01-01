@@ -3,7 +3,7 @@
 # -- Project information
 
 project = 'Mathematical Foundations'
-copyright = '2022-2025, UselessTechJunks'
+copyright = '2022-2026, UselessTechJunks'
 author = 'Useless Tech Junks'
 
 release = '0.1'
@@ -43,7 +43,8 @@ templates_path = ['_templates']
 # -- Options for HTML output
 #html_theme = 'sphinx_rtd_theme'
 #html_theme = 'python_docs_theme'
-html_theme = "pydata_sphinx_theme"
+#html_theme = "pydata_sphinx_theme"
+html_theme = 'groundwork'
 html_context = {
     "default_mode": "dark",  # or "auto" or "light"
 }
@@ -61,4 +62,5 @@ mathjax3_config = {
         'mtextInheritFont' : 'true',
     }
 }
+
 
