@@ -9,6 +9,7 @@ Mathematical Foundations
 	linalg/index
 	calc3/index
 	analysis/index
+	topology
 	funan
 	prob/index
 	stat/index
