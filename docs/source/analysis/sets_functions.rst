@@ -10,41 +10,83 @@ Preliminary Definitions Related to Functions and Cardinality
 ================================================================================
 
 .. note::
-    * **Function**: For non-empty sets :math:`A` and :math:`B`, a rule :math:`f:A\to B` assigning each :math:`x\in A` to a value in :math:`B`.
-    * **Domain**: The set :math:`A` is the domain of :math:`f`.
-    * **Values**: The associated element of :math:`B` is :math:`f(x)`.
-    * **Co-domain**: The set :math:`B` is the co-domain of :math:`f`.
-    * **Range**: :math:`f(A):=\{f(x)\mid x\in A\}`.
-    * **Onto Mapping / Surjection**: :math:`f` is onto if :math:`f(A)=B`.
-    * **Image**: For :math:`E\subseteq A`, :math:`f(E):=\{f(x)\mid x\in E\}`.
-    * **Pre-image**: For :math:`E\subseteq B`,
+    * **Function**: For two non-empty sets :math:`A` and :math:`B`, if each element :math:`x` of :math:`A` is associated with an element of :math:`B`, then this association is a function (or a mapping) from :math:`A` to :math:`B`, written as :math:`f:A\to B`.
 
-        .. math:: f^{-1}(E):=\{x\in A\mid f(x)\in E\}.
+.. tip::
+    Imagine packing when relocating, putting items inside boxes before moving all those boxes inside your truck. A function is a rule which says which item goes inside which box. You can put two items in the same box but cannot put the same item into two different boxes. Your truck may have some leftover space when you're done packing.
 
-    * **One-to-one Mapping / Injection**: For every :math:`y\in f(A)`, the set :math:`f^{-1}(\{y\})` has exactly one element.
-    * **Bijection**: If there is a one-to-one mapping of :math:`A` onto :math:`B`, write :math:`A\sim B`.
+.. note::
+    The following definitions are for a function :math:`f:A\to B`.
+    * **Domain**: The set :math:`A` is called the domain of :math:`f`.
+    * **Values**: The element in :math:`B` that is associated with an element :math:`x\in A` is called the value of :math:`x`, written as :math:`f(x)`.
+    * **Co-Domain**: The set :math:`B` is called the co-domain of :math:`f`.
+    * **Range**: The set of all values,
 
-.. remark::
-    If :math:`A\sim B`, then :math:`A` and :math:`B` share the same cardinal number.
+        .. math:: f(A) := \{ f(x) \mid x \in A \},
 
-Finite, Countable, and Uncountable Sets
+      is called the range of :math:`f`.
+
+.. note::
+    * **Remark**: :math:`f(A) \subseteq B`.
+    * **Onto Mapping / Surjection**: If :math:`f(A)=B`, then :math:`f` is called a mapping of :math:`A` onto :math:`B` (instead of into) or a surjection.
+    * **Image**: For a set :math:`E \subseteq A`,
+
+        .. math:: f(E) := \{ f(x) \mid x \in E \}
+
+      is called the image of :math:`E` under :math:`f`.
+    * **Pre-Image**: For a set :math:`E \subseteq B`,
+
+        .. math:: f^{-1}(E) := \{ x \mid f(x) \in E \}
+
+      is called the pre-image of :math:`E` under :math:`f`.
+    * **1-1 Mapping / Injection**: If :math:`\forall y \in f(A)`, the pre-image of :math:`\{y\}`,
+
+        .. math:: f^{-1}(\{y\}) := \{ x \mid f(x) = y \}
+
+      consists of just one element (i.e., a singleton), then :math:`f` is called a 1-1 mapping or injection of :math:`A` into :math:`B`.
+    * **1-1 Correspondence / Bijection**: If there exists a 1-1 mapping of :math:`A` onto :math:`B`, then :math:`A` and :math:`B` are said to be in 1-1 correspondence and :math:`f` is called a bijection. :math:`A` and :math:`B` are called equivalent and it is written as :math:`A \sim B`.
+
+.. note::
+    * **Remark**: If :math:`A \sim B`, then :math:`A` and :math:`B` are said to have the same cardinal number.
+    * **Remark**: The relation :math:`A \sim B` has the following properties:
+
+        * :math:`A \sim A`  [Reflexive]
+        * :math:`A \sim B \implies B \sim A`  [Symmetric]
+        * :math:`A \sim B \wedge A \sim C \implies A \sim C`  [Transitive]
+
+Finite, Countable, Uncountable Sets and Sequences
 ================================================================================
 
 .. note::
-    * :math:`J_n := \{1,\dots,n\}` and :math:`J := \{1,2,3,\dots\}`.
-    * **Finite Set**: :math:`A` is finite if :math:`A=\varnothing` or :math:`A\sim J_n` for some :math:`n`.
-    * **Infinite Set**: A set that is not finite.
-    * **Countable Set**: :math:`A\sim J`.
-    * **Uncountable Set**: Neither finite nor countable.
-    * **Sequence**: A function :math:`f:J\to X`, written as :math:`\{x_n\}`.
+    From now on, for some positive integer :math:`n`, let :math:`J_n := \{1, \cdots, n\}` and let :math:`J := \{1, \cdots\}` (set of all positive integers).
+    * **Finite Set**: A set :math:`A` is called finite iff (a) :math:`A = \emptyset` or (b) :math:`A \sim J_n` for some :math:`n`.
+    * **Infinite Set**: If :math:`A` is not finite, it is infinite.
+    * **Countable Set**: If :math:`A \sim J`, then :math:`A` is said to be countable.
+    * **Remark**: Countable sets are also called enumerable or denumerable.
+    * **Uncountable Set**: If :math:`A` is neither finite nor countable, it is called uncountable.
+    * **At-most Countable Set**: If :math:`A` is either finite or countable, it is called at-most countable.
+    * **Remark**: :math:`\mathbb{Z} \sim J`.
+    * **Remark**: A set :math:`A` is infinite if :math:`A` is equivalent to one of its proper subsets.
+    * **Sequence**: A function :math:`f : J \to X` is called a sequence. If :math:`f(n) = x_n`, then the sequence is usually written as :math:`\{x_n\}`.
+    * **Insight**: A sequence is a never-ending labeling of items in a set in an orderly fashion.
+    * **Remark**: If :math:`\forall n \in J`, :math:`x_n \in A`, then :math:`\{x_n\}` is said to be a sequence in :math:`A`.
+    * **Remark**: Every countable set can be arranged in a sequence.
 
-Properties
+Properties involving Finite, Countable, and Uncountable Sets
 ================================================================================
 
 .. note::
     * **Theorem**: Every infinite subset of a countable set is countable.
-    * **Theorem**: A countable union of countable sets is countable.
-    * **Theorem**: The set of all sequences whose elements come from a finite set is uncountable.
+    * **Remark**: Countable sets represent the smallest kind of infinity.
+    * **Theorem**: Countable union of countable sets are countable. Let :math:`\{E_n\}` be a sequence of countable sets. Then :math:`\bigcup_{n=1}^{\infty} E_n` is countable.
+    * **Theorem**: Set of tuples whose elements are taken from a countable set is countable. For :math:`A`, a countable set, let
 
-.. tip::
-    When comparing cardinalities, it is often enough to build an explicit injection or bijection with :math:`J` or a subset of :math:`J`.
+        .. math:: B_n := \{(a_1, \cdots, a_n)\}
+
+      where every :math:`a_k \in A`, not necessarily distinct. Then :math:`B_n` is countable.
+    * **Remark**: :math:`\mathbb{Q}` is countable.
+    * **Theorem**: Set of sequences whose elements are taken from a finite set is uncountable. For :math:`A`, a finite set, let
+
+        .. math:: B := \bigl\{\{x_n\} \mid \{x_n\} \text{ is a sequence in } A\bigr\}
+
+      (i.e. :math:`B` is the set of all sequence whose elements are chosen, with repetition, from :math:`A`). :math:`B` is uncountable.
