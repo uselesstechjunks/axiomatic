@@ -39,7 +39,7 @@ This refers to the application to *real-world* problems. For example, we can com
 	:maxdepth: 1
 
 	prereq
-	analysis
+	analysis/index
 	linalg/index
 	funan
 	calc3/index
