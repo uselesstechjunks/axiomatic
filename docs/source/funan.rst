@@ -293,7 +293,7 @@ Holder Space
 Reproducing kernel Hilbert space
 ================================================================================
 Moore-Aronszajn Theorem
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------------------------------------------------------------
 We assume that the kernel is positive definite.
 .. warning::
 	For every positive definite kernel :math:`K` on a set :math:`E`, there exists a unique RKHS :math:`\mathcal{H}_k` of functions on :math:`E` for which :math:`K` is the reproducing kernel.
