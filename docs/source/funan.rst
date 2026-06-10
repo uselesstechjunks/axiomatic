@@ -250,12 +250,6 @@ Kernel of a Linear Transform
 	* We note that when the matrix is the centered, normalised data matrix, then the kernel gives the sample covariance matrix.
 	* This hints as the usability of functional kernels for covariance functions for infinite dimensional Gaussian distributions (GPs).
 
-Moore-Aronszajn Theorem
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-.. warning::
-	* We assume that the kernel is positive definite.
-	* Then there exists a unique :math:`\mathcal{H}_k` for which :math:`K` is the kernel basis.
-
 Mercer Theorem - Eigenfunctions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .. note::
@@ -298,6 +292,11 @@ Holder Space
 ================================================================================
 Reproducing kernel Hilbert space
 ================================================================================
+Moore-Aronszajn Theorem
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+We assume that the kernel is positive definite.
+.. warning::
+	For every positive definite kernel :math:`K` on a set :math:`E`, there exists a unique RKHS :math:`\mathcal{H}_k` of functions on :math:`E` for which :math:`K` is the reproducing kernel.
 
 ********************************************************************************
 Generalised Functions - Distributions
