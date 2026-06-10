@@ -132,7 +132,7 @@ Metric - Induced by the Norm
 .. note::
 	* The :math:`l_p` norm for finite vectors induces a metric 
 
-		.. math:: d(\mathbf{u}, \mathbf{v})=||\mathbf{u}-\mathbf{v}||_2=\left(\sum_{i=1}^n|u_i-v_i|^p\right)^{1/p}
+		.. math:: d(\mathbf{u}, \mathbf{v})=||\mathbf{u}-\mathbf{v}||_p=\left(\sum_{i=1}^n|u_i-v_i|^p\right)^{1/p}
 	* We can define, similarly, for functions
 
 		.. math:: d(f, g)=||f-g||_{L_p(\mathcal{X},\mu)}=\left(\int_\limits{i=1}^n|f(x)-g(x)|^p\mathop{d\mu}(x)\right)^{1/p}
