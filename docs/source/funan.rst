@@ -97,7 +97,7 @@ Orthogonality
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .. note::
 	* Two functions :math:`f` and :math:`g` are orthogonal if their inner product is 0.
-	* Example: For real trig functions :math:`\sin:[0,\pi]\mapsto[0,1]` and :math:`\cos:[0,\pi]\mapsto[0,1]`
+	* Example: For real trig functions :math:`\sin:[0,\pi]\mapsto[0,1]\in\mathbb{R}` and :math:`\cos:[0,\pi]\mapsto[-1,1]\in\mathbb{R}`
 
 		.. math:: \langle\sin,\cos\rangle=\int_\limits{0}^{\pi}\sin(x)\cos(x)\mathop{dx}=0
 
@@ -132,13 +132,13 @@ Metric - Induced by the Norm
 .. note::
 	* The :math:`l_p` norm for finite vectors induces a metric 
 
-		.. math:: d(\mathbf{u}, \mathbf{v})=||\mathbf{u}-\mathbf{v}||_2=\left(\sum_{i=1}^n|u_i-v_i|^p\right)^{1/p}
+		.. math:: d(\mathbf{u}, \mathbf{v})=||\mathbf{u}-\mathbf{v}||_p=\left(\sum_{i=1}^n|u_i-v_i|^p\right)^{1/p}
 	* We can define, similarly, for functions
 
 		.. math:: d(f, g)=||f-g||_{L_p(\mathcal{X},\mu)}=\left(\int_\limits{i=1}^n|f(x)-g(x)|^p\mathop{d\mu}(x)\right)^{1/p}
 
 		* If :math:`d(f, g)=0`, then the functions are the same "almost everywhere".
-		* In this case, they are different for **at most** finitely many "dimensions".
+		* In this case, whereever they are different has **measure zero** (e.g, finitely many points or "dimensions").
 
 Topological Properties
 --------------------------------------------------------------------------------
@@ -147,7 +147,7 @@ Topological Properties
 
 .. tip::
 	* Complete normed spaces are known as `Banach Space <https://en.wikipedia.org/wiki/Banach_space>`_.
-	* Complete inner product spaces are known as `Hilbert Space <https://en.wikipedia.org/wiki/Hilbert_space>`_.
+	* Complete normed spaces where the norm is induced by inner-product are known as `Hilbert Space <https://en.wikipedia.org/wiki/Hilbert_space>`_.
 
 .. warning::
 	* Without the metric, the only topology we can have for the set of functions is the `product topology <https://en.wikipedia.org/wiki/Product_topology>`_ (as suggested by :math:`\mathcal{Y}^{\mathcal{X}}`).
@@ -179,7 +179,7 @@ Linear Transforms
 Linear Transforms on Euclidean Space
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .. note::
-	* We consider an normalized set of basis vectors (i.e. of unit-length but not necessarily orthogonal) in :math:`\mathbb{R}^n` for a finite dimensional vector space as
+	* We consider a set of unit-vectors (i.e. normalized but not necessarily orthogonal) in :math:`\mathbb{R}^n` for a finite dimensional vector space as
 
 		.. math:: \{\mathbf{a}_1,\cdots\mathbf{a}_n\}	
 	* We can find the projection of any vector :math:`\mathbf{u}\in\mathbb{R}^n` onto each of the basis
@@ -250,12 +250,6 @@ Kernel of a Linear Transform
 	* We note that when the matrix is the centered, normalised data matrix, then the kernel gives the sample covariance matrix.
 	* This hints as the usability of functional kernels for covariance functions for infinite dimensional Gaussian distributions (GPs).
 
-Moore-Aronszajn Theorem
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-.. warning::
-	* We assume that the kernel is positive definite.
-	* Then there exists a unique :math:`\mathcal{H}_k` for which :math:`K` is the kernel basis.
-
 Mercer Theorem - Eigenfunctions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .. note::
@@ -276,11 +270,11 @@ Fourier Basis
 
 		* A basis for functions in :math:`L^2([0,1],\mathbb{R})` can be defined in terms of an infinite set of orthonormal functions`
 
-			.. math:: \{1, (\sqrt{2}\sin(2\pi nx))_{n=1}^\infty, (\sqrt{2}\cos(2\pi nx))_{n=1}^\infty\}
+			.. math:: \{1, (\sqrt{2}\sin(2\pi kx))_{k=1}^\infty, (\sqrt{2}\cos(2\pi kx))_{k=1}^\infty\}
 		* The :math:`\sin` functions account for odd-frequencies and the :math:`\cos` functions account for even-frequencies.
-	* Here we have 3 sets of basis functions, so we use 3 different kinds of normalised-projection co-efficients, :math:`a_0,a_i,b_i`
+	* Here we have 3 sets of basis functions, so we use 3 different kinds of normalised-projection co-efficients, :math:`a_0,a_k,b_k`
 
-		.. math:: f(x)=a_0\cdot1+\sum_{n=1}^\infty a_i\cdot\cos(2\pi nx)+\sum_{n=1}^\infty b_i\cdot\sin(2\pi nx)
+		.. math:: f(x)=a_0\cdot1+\sum_{k=1}^\infty a_i\cdot\cos(2\pi kx)+\sum_{k=1}^\infty b_i\cdot\sin(2\pi kx)
 	* :math:`a_0` computes the projection of :math:`f(x)` onto the constant function :math:`1`.
 
 		.. math:: a_0=\frac{\int_\limits{[0,1]}1\cdot f(x)\mathop{dx}}{\int_\limits{[0,1]}1\cdot 1\mathop{dx}}=\int_\limits{[0,1]}f(x)\mathop{dx}
@@ -298,6 +292,11 @@ Holder Space
 ================================================================================
 Reproducing kernel Hilbert space
 ================================================================================
+Moore-Aronszajn Theorem
+--------------------------------------------------------------------------------
+We assume that the kernel is positive definite.
+.. warning::
+	For every positive definite kernel :math:`K` on a set :math:`E`, there exists a unique RKHS :math:`\mathcal{H}_k` of functions on :math:`E` for which :math:`K` is the reproducing kernel.
 
 ********************************************************************************
 Generalised Functions - Distributions
