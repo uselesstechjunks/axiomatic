@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\begin{document}
+\title{Intuition for Analysis}
+\author{Soumyajit De}
+\maketitle
+
+\section{Metric Space}
+Metric space introduces the concept of how close or how far apart things are in the mathematical setting. The concept of a \emph{metric} introduces a precise definition of what a \emph{distance} is like between two elements of a set.
+
+Let us try to get a concrete idea of what a properly designed distance should behave like. First of all, we want to capture that, in order to go to the point where we are currently in, we shouldn't travel any distance at all. This means, that a distance of a point to itself should be 0.
+
+So far so good. Next, we want to capture this idea that if you measure the distance from point $A$ and point $B$, that should be the same if you measured it from the other way around, that is, from point $B$ to point $A$.
+
+Third, let's say, you're constructing a road between $A$ and $B$. So, you take the task of measuring the distance from point $A$ to point $B$. Now, your neighbour lives at point $C$ and wants to include her residence in the calculation. Okay! So you tell her, you're gonna measure it from point $A$ to point $C$ first, and then you're gonna measure a distance from point $C$ to point $B$. But, you then realize, that if her residence $C$ is not in line with the original $A$ to $B$ road, you're gonna have to take a detour and its gonna take longer. Only when $C$ lies in the original road plan, the distances are the same. Alright! So, the direct distance between any two points is either (a) lesser than or (b) equal to the distance when you have to take a detour.
+
+And that's it! These three properties are all we need to design a distance between two points.
+\subsection{Limit Points and Closed Sets}
+With the notion of such a distance, we can ask a few interesting question. For example, let's imagine that we see a shiny treasure point somewhere in a metric space. But, we find out that we are stuck inside some sticky subset of the original space which we cannot escape no matter how hard we try. As if, we're stuck in our own tiny little universe, whereas that shiny point may lie out there inside another universe. We don't know that yet, unless we try to get close to it. Just remember: we have to pay a huge tax to the government if we have to take the \emph{escape your universe} pod. We don't have that much money.
+
+Okay! Now, an interesting question can be: without leaving our home universe, how close can we get to that point that we see shining out there. Can we get \emph{arbitrarily} close?
+
+Let's make it clear first what we mean by \emph{arbitrarily} close here. Think of it as a mathematical jargon for \emph{as much as you like}. Imagine that you're playing a game with a toddler and she asks \emph{can you get within 0.005m of that point without leaving your universe?}. You say: \emph{sure}. Then she, as annoying as kids are, asks: \emph{can you get within 0.000000005m within that point?}. You, realizing that this could go on for a while, and say, \emph{honey, whatever distance you give me, no matter how small, I can always get that close to that point without leaving this universe}. Now that is called \emph{arbitrarily} close.
+
+Now, what if we can indeed get arbitrarily close to that point without leaving our universe? We can say, well, it's within our limits. Can we touch it, without paying the tax? Maybe yes, maybe not. If not, then we have definitely reached our limits. In any case, as long as we don't have to pay the tax and still reach as much close to the point as we like, then we call it a \textbf{limit point}.
+
+Alright! So, we checked one such point. But let's get greedy. Let's try to find out \emph{all} such points that we can get arbitrarily close to without paying the tax. It's gonna take a while, but it's possible, right? The travel is free within our own universe. It's mathematics, after all.
+
+Okay. So, let's imagine that you have found out all such points. Now, we check them one by one. If we can touch it (as in, that point is a part of our own universe), we mark it green. Else, we mark it red. Once we're done, let's check our marked set. What if it's all green? That's great news! Then we can touch all the treasure points without paying a single dime in tax! And whenever you do something without leaving your universe, mathematicians call it \emph{closed}. Weird name, but let's roll with it. So, all the treasure points in space that we can get arbitrarily close to, are all in our own universe/set. This makes our set a \textbf{closed set}.
+
+Bad news is, sometimes, our own universe is fragmented. There might be treasure points in some parts of our own universe that we cannot get arbitrarily close to, without having to take a jump through the external universe. We call all those lonely points \textbf{isolated points}, rightfully so.
+
+What if there are no isolated points, and you reside in a closed set universe? Great! Then you can get as much close to any point in your own universe as you like, and touch those points too! No tax needed thank you very much! Perfect, right? We call such a set \textbf{perfect set}.
+
+\subsection{Interior Point and Open Set}
+Enough about getting close to and touching points that might or might not be here in our own universe. Let's focus on another question, completely different. Let's say, you're jailed in a point somewhere in your universe.
+\end{document}

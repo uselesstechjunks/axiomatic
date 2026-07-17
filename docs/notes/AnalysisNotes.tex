@@ -1,0 +1,249 @@
+\documentclass{report}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{mathtools}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% definitions, theorems, examples %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter] % reset theorem numbering for each chapter
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition} % definition numbers are dependent on theorem numbers
+\newtheorem{example}[theorem]{Example} % same for example numbers
+\newtheorem{remark}[theorem]{Remark} % same for remarks
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% definitions, theorems, examples %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\title{Notes on Analysis\\
+	\Large Compiled based on lectures by Prof. Vittal Rao\\
+	\large IISc, Bangalore, IN}
+\author{Soumyajit De}
+
+\maketitle
+\tableofcontents
+%\newpage
+\chapter{Lectures 1}
+In this lecture, we will first define what a function is. We're then going to describe function extensions using a few examples. Then we're going to introduce the notion of image, inverse image and inverse of a set under a function. We'll discuss the notion of one-one and onto mapping, and from that, we'll establish that a mapping from a set to its power set can never be onto. Using this fact, we're going to introduce the notion of cardinality and size of a set and define different kinds of infinity.
+\section{Functions}
+\begin{definition}[Function]
+Given two non-empty sets $X$ and $Y$, a function $f$, written as $f:X\mapsto Y$, can be defined as the triplet $(X,Y,\mathcal{F})$ where the set $\mathcal{F}$, defined as $\mathcal{F}\coloneqq\{(x,y) \mid x\in X,y\in Y\}$ adheres to the following properties:
+\begin{itemize}
+\item $\forall x\in X,\exists y\in Y$, such that $(x,y)\in\mathcal{F}$
+\item $\forall x\in X,\forall y,z\in Y,\left((x,y)\in\mathcal{F}\right)\wedge\left((x,z)\in\mathcal{F}\right)\implies (y=z)$
+\end{itemize}
+\end{definition}
+\noindent For a function $f:X\mapsto Y$ and any tuple $(x,y)\in\mathcal{F}$ for some $x\in X,y\in Y$, the usual practice is to write it as $y=f(x)$ or as $x\xmapsto[]{f}y$. Here $y$ is called the \emph{image} of $x$ under $f$ \emph{or} $x$ is said to be \emph{mapped to} $y$ under $f$.
+
+The set $\mathcal{F}$, as defined in the definition, is often referred as the \emph{rule} which maps every $x$ from $X$ to some $y$ in $Y$, or it \emph{assigns} an \emph{output} $y$ to an \emph{input} $x$. Most commonly, the rule is not given as a set, but as a computation rule which constructs the value of $y$ from a given $x$, where such a computation is defined for the elements in the set $X$ and $Y$. Sometimes in practice, a function is given just as a rule (e.g. $f(x)=x^2$) without mentioning its domain and co-domains explicitly. However, it is important to remember that For a function, the underlying sets, $X$ and $Y$ has to be defined as well. This will be important when we discuss about function equality and extensions, where we need to remember that underneath, a function is indeed a triplet.
+\subsection{Terminology}
+\begin{definition}[Domain \& Co-Domain]
+For a function $f:X\mapsto Y$, the sets $X$ and $Y$ are called the \emph{domain} ($D_f$) and the \emph{co-domain} ($CoD_f$) of $f$, respectively.
+\\
+Using these terminologies, the followings should be true for a function: 
+\begin{enumerate}
+\item Every element in the domain should have an image in the co-domain
+\item An element of the domain cannot be mapped to two different elements in its co-domain
+\end{enumerate}
+\end{definition}
+\begin{definition}[Range]
+For a function $f:X\mapsto Y$, the set $\{f(x)\mid \forall x\in X\}$ is called the \emph{range} ($R_f$) of $f$.
+\end{definition}
+\begin{definition}[Onto]
+A function $f:X\mapsto Y$ is called an onto mapping if $CoD_f=R_f$.
+\end{definition}
+\begin{definition}[Image of a Set]
+For a function $f:X\mapsto Y$ and a set $E\subseteq X$, the set $\{f(x)\mid \forall x\in E\}$ is called the \emph{image} of $E$ under $f$. It is denoted by $f(E)$.
+\end{definition}
+\begin{definition}[Inverse Image of a Set]
+For a function $f:X\mapsto Y$ and a set $S\subseteq Y$, the set $\{x\mid \forall f(x)\in S\}$ is called the \emph{inverse-image} of $S$ under $f$. It is denoted by $f^{-1}(S)$.
+\end{definition}
+\begin{definition}[One-one]
+A function $f:X\mapsto Y$ is called a one-one mapping if $f(x)=f(x')$ implies $x=x'$, i.e. every $x\in X$ gets mapped to different images in $Y$.
+\end{definition}
+\begin{definition}[Inverse Function]
+If a function $f:X\mapsto Y$ is both one-one and onto, we can define a function on $f^{-1}:Y\mapsto X$ as $(Y,X,\mathcal{F}')$ where $\mathcal{F}'\coloneqq\{(y,x)\mid \forall(x,y)\in\mathcal{F}\}$ which adheres to both the properties mentioned in the definition of a function. $f^{-1}$ is called the inverse function of $f$.
+\end{definition}
+\begin{definition}[Equivalent Sets]
+Two sets $X$ and $Y$ are called \emph{equivalent} if one can define a mapping $f:X\mapsto Y$ and an inverse mapping $f^{-1}:Y\mapsto X$ defined between them. We write it as $X\sim Y$.
+\end{definition}
+
+\noindent The relation $X\sim Y$ defines an equivalence relation between sets which maintains the following properties:
+\begin{enumerate}
+\item $X\sim X$ [Reflexive]
+\item $X\sim Y\implies Y\sim X$ [Symmetric]
+\item $(X\sim Y)\wedge(Y\sim Z)\implies X\sim Z$ [Transitive]
+\end{enumerate}
+
+\begin{remark}
+Two functions $f:X_1\mapsto Y_1$ and $g:X_2\mapsto Y_2$ to said to be equal, \emph{iff} (a) $X_1 = X_2$ (b) $Y_1 = Y_2$ and (c) $\mathcal{F}_1 = \mathcal{F}_2$, i.e. the triplets are identical.
+\end{remark}
+\subsection{Function Extension}
+Let's say, that we have a function $f$. If we define another function $g$ whose domain covers the entire $D_f$ while maintaining the same rule, then we call $g$ as an extension of $f$. This notion is captured more formally in the following definition.
+\begin{definition}
+Let's say we have two functions, $f$ and $g$, described respectively as the following triplets: $(X,Y,\mathcal{F})$ and $(S,Y,\mathcal{G})$. In this scenario, $g$ is called an extension of $f$ \emph{iff} (a) $X\subseteq S$ and (b) $p\in\mathcal{F}\implies p\in\mathcal{G}$. We can also write this as $g\mid_{D_f} = f$, or, $g$, conditioned on $D_f$, is equal to $f$.
+\end{definition}
+\noindent Often times, the study of extensions are useful when they preserve certain properties of the original function. This should be clear from this example. Let's say, we have a function $g:\mathbb{R}^2\mapsto \mathbb{R}$. We can define another function $f:X\mapsto \mathbb{R}$, such that, $X=\{(x,0)\mid x\in\mathbb{R}\}\subset\mathbb{R}^2$.
+TODO define function norm and show that the extension holds.
+\subsection{Mapping to power-set}
+\chapter{Lectures 17-19}
+In this series of lectures, we're going to introduce a topological structure to the set $\mathbb{R}$ and define what a metric space is. With this additional structure, we're going to introduce the notion of limits and convergence. Then, using this same topological notion, we're going to discuss open and close sets and construction of further types of sets using known set theoretic operations. Finally we're going to define measure theoretic aspect on $\mathbb{R}$, using the notion of $\sigma$-algebra.
+\section{Metric Space}
+For the set $\mathbb{R}$, the operations (binary functions) `$+$' and `$\cdot$' provide the \emph{algebraic structure} of a field, represented as the tuple $(\mathbb{R}, +, \cdot)$. However, to introduce a notion of \emph{distance} between the elements, which is essential to add a \emph{topological} structure to $\mathbb{R}$, we need define another binary function, called the \emph{metric}. Any set, along with this \emph{metric} defined, forms a metric space.
+\begin{definition}[Metric Space]
+For a set $S$ and a metric function defined as $d:S\times S\mapsto\mathbb{R}_0^+$, a metric space is defined by the tuple $(S,d)$, where $d$ maintains the following properties $\forall x, y, z\in S$:
+\begin{itemize}
+\item[(a)] $d(x,y)=d(y,x)$ [Symmetry]
+\item[(b)] $d(x,y)=0\Leftrightarrow x=y$ [Uniqueness]
+\item[(c)] $d(x,y)\le d(x,z)+d(y,z)$ [Triangular Inequality]
+\end{itemize}
+\end{definition}
+\noindent\textbf{Notation:} $\mathbb{R}_0^+\coloneqq[0,\infty)$, $\mathbb{R}^+\coloneqq(0,\infty)$.
+\begin{example}
+\noindent $(\mathbb{R},d)$ is a metric space, where $d(x,y)=|x-y|, \forall x,y\in\mathbb{R}$, where $|\cdot|:\mathbb{R}\mapsto\mathbb{R}_0^+$ is the absolute-value function.
+\end{example}
+\subsection{Definitions}
+We begin by defining \emph{neighborhood}, $N_r(p)$, for a metric space $(X, d)$ and $p\in X$.
+\begin{definition}[Neighborhood]
+For a point $p\in X$ and some $r>0$, the \emph{neighborhood} of $p$ with radius $r$ is defined as $N_r(p)\coloneqq\{x\in X \mid d(p,x)<r\}$.
+\end{definition}
+\begin{definition}[Punctured-Neighborhood]
+$N^*_r(p)\coloneqq N_r(p)\setminus \{p\}$.
+\end{definition}
+\subsubsection{Limit Point}
+The intuition of limit points is this: Let's say, we have a metric space $(X,d)$ and $p\in X$. We also have a set $E\subset X$, where \textbf{$p$ may or may not be in $E$}. Now, $p$ would be called a limit point of $E$ if we can get \emph{arbitrarily close} to $p$, without having to jump out of the set $E$ at any point. This means, that if we take a neighborhood around $p$ with \emph{any} radius, no matter how small, there are still going to be points in there other than $p$ itself that are from the set $E$. This notion of arbitrary closeness to $p$ is formally captured in the definition below.
+\begin{definition}[Limit Point]
+If for a $p\in X$, $\forall r>0$, $N^*_r(p)\cap E\neq \phi$, then $p$ is called a limit point of $E$.
+\end{definition}
+\subsubsection{Interior Point}
+The intuition of interior points is related to that of limit points: Let's say, as before, we have a metric space $(X,d)$ and a set $E\subset X$, but this time, \textbf{we have a point $p\in E$}. The key idea is that, if we jump out of $p$ and take a tiny step, we land in a space which is still in $E$. When such a step exists, we call $p$ as an internal point. This, again, is formally defined as follows.
+\begin{definition}[Internal Point]
+If for a $p\in E$, $\exists r>0$, $N_r(p)\subset E$, then $p$ is called an internal point of $E$.
+\end{definition}
+\subsubsection{Closed Set}
+Remember that in general, for limit points $p$, it is not necessary for them to be in $E$ as well. But when they are in $E$, we call it a closed set. It means, all the points that we can get arbitrarily close to without stepping out of $E$, are all in $E$ itself. We define this formally using the following notation: The set of all limit points of a set $E\subset X$ is denoted by $E'$.
+\begin{definition}[Closed Set]
+A set $E$ is called a \emph{closed set} \emph{iff} $E'\subseteq E$.
+\end{definition}
+\subsubsection{Open Set}
+When we can jump out of any point and take a tiny step in any direction and still manage to land in $E$, we call $E$ an open set. Similar to closed set, we define this formally using another notation: The set of all internal points of a set $E\subset X$ is denoted by $E^0$.
+\begin{definition}[Open Set]
+A set $E$ is called open set \emph{iff} $E=E^0$.
+\end{definition}
+\noindent\textbf{Interesting note here:} open and closed sets do not form a dichotomy. There are sets that are both open and closed (for example, the $\phi$ and $\mathbb{R}$ sets are both open and closed) and there are sets that are neither.
+\subsubsection{Perfect Set}
+When we can get arbitrary close to any point in $E$ without having to ever jump out of $E$, we call it a perfect set.
+\begin{definition}[Perfect Set]
+When $E'=E$, then $E$ is called a perfect set.
+\end{definition}
+\subsubsection{Isolated Point}
+If there are points in $E$ such that we cannot get arbitrarily close to it without stepping out of $E$, then those points are called isolated points.
+\begin{definition}[Isolated Point]
+If for a $p\in E$, $p\notin E'$, then $p$ is an isolated point in $E$.
+\end{definition}
+\subsubsection{Properties of Open Set}
+\noindent Now we discuss the consequences of applying set operations on open sets. We can arrive at analogous (dual) properties for closed sets as well.
+\begin{theorem}
+Open sets are closed under union. Let $\{A_j\}_{j\in\mathcal{J}}$ be a collection of open sets (for any index set $\mathcal{J}$), Then $\bigcup_{j\in\mathcal{J}} A_j$ is also open.
+\end{theorem}
+\begin{proof}
+Let $A_i$ and $A_j$ are two open sets. Now, $\forall z\in A_i\cup A_j\implies z\in A_i\vee z\in A_j$. Let's consider both these possibilities one by one. $z\in A_i\implies \exists \epsilon_i>0, B_{\epsilon_i}(z)\subseteq A_i\subseteq A_i\cup A_j$. Similarly, $z\in A_j\implies \exists \epsilon_j>0, B_{\epsilon_j}(z)\subseteq A_j\subseteq A_i\cup A_j$. So, in both these cases, $\exists\epsilon>0$ such that $\forall z\in A_i\cup A_j, B_\epsilon(z)\subseteq A_i\cup A_j$.
+
+We can extend the same argument and conclude that union of any collection, finite, countable or uncountable, of open sets is an open set.
+\end{proof}
+\begin{theorem}
+Open sets are closed under finite intersection. Let $\{A_i\}_{i=1}^N$ be a finite collection of open sets. Then the set $\bigcap_{i=1}^N A_i$ is also open.
+\end{theorem}
+\begin{proof}
+Let $A_i$ and $A_j$ are two open sets. By definition, this means that $\exists \epsilon_i>0$ such that $\forall x\in A_i$, $B_{\epsilon_i}(x)\subseteq A_i$ and $\exists \epsilon_j>0$ such that $\forall y\in A_j$, $B_{\epsilon_j}(y)\subseteq A_j$. Now, $\forall z\in A_i\cap A_j\implies z\in A_i\wedge z\in A_j$. Let $\epsilon=\min(\epsilon_i, \epsilon_j)$. Since both $\epsilon_i>0$ and $\epsilon_j>0$, we know that $\min(\epsilon_i, \epsilon_j)>0$. Also, since $\epsilon<\epsilon_i$, we have $B_\epsilon(z)\subseteq B_{\epsilon_i}(z)\subseteq A_i$. Similarly, we have $B_\epsilon(z)\subseteq B_{\epsilon_j}(z)\subseteq A_j$. Combining these two, we have $\forall z\in A_i\cap A_j$, $\exists\epsilon>0$, such that $B_\epsilon(z)\subseteq A_i\wedge B_\epsilon(z)\subseteq A_j\implies B_\epsilon(z)\subseteq A_i\cap A_j$. This means, that $A_i\cap A_j$ is an open set.
+
+We can extend this argument for any finite collection of sets, since for any finite collection of $\{\epsilon_1, \epsilon_2, \cdots \epsilon_n\}$, $\min_{i=1}^n \epsilon_i > 0$. However, this is not true for countably infinite sequences in general. For example, if we have a sequence $\{\epsilon_n\}$ as $\{1,\frac{1}{2},\frac{1}{4},\cdots\}$, then $\min_{n\in\mathbb{N}} x_n = 0$. But we need an $\epsilon>0$ to form an open set. Therefore, only in the finite case, the intersection is guaranteed to be an open set. But no mathematical guarantee can be provided for the countably infinite and uncountable case.
+\end{proof}
+\begin{example} The open interval, defined as $(a, b)\coloneqq\{x : a < x < b\}$ is the simplest possible open set defined on $\mathbb{R}$. Similarly, the closed interval, defined as $[a, b]\coloneqq\{x : a \leq x \leq b\}$ is the simplest possible closed set in $\mathbb{R}$.
+\end{example}
+\subsection{Simple Construction of Sets}
+Let's take the collection of all \emph{open balls} defined on a metric space $S$, called $\mathcal{O}$. We can take elements from this collection and start applying (countable or uncountable) union and finite intersection. The result sets are all open sets. Any possible open set in the metric space can be built in this fashion. The collection of all \emph{open sets} is usually called $\mathcal{G}$, and collection of all \emph{closed sets} is called $\mathcal{F}$.
+
+In fact, it is even possible to construct $\mathcal{G}$ from a countable \emph{disjoint} set of open-balls from $\mathcal{O}$ and applying union. This is known as \textbf{simple construction} of sets (i.e. sets formed by any countable operations on other sets). This result is known as Lindeloff's theorem.
+
+Interestingly, if we take a countable collection from $\mathcal{G}$ and apply \emph{intersection} instead, then we may or may not end up with an open set (since open sets are only guaranteed to be closed under \emph{finite} intersection). These new sets are called $\mathcal{G}_\delta$ sets, where the $\delta$ corresponds to countable intersections. Similarly, a countable union from $\mathcal{F}$ forms $\mathcal{F}_\sigma$ sets, $\sigma$ corresponding to the operations of performing countable unions.
+
+We can now take these $\mathcal{G}_\delta$ and $\mathcal{F}_\sigma$ sets and apply further $\sigma$ and $\delta$ operations to construct $\mathcal{G}_{\delta\sigma}$, $\mathcal{F}_{\sigma\delta}$, $\mathcal{G}_{\delta\sigma\delta}$, etc.
+\section{Measure Theory}
+Let's say, we have a \emph{non-empty} set, $\Omega$. Clearly, the number of subsets are $2^{|\Omega|}$. We are interested a non-empty collection of subsets, $B$, which is \emph{self-contained} in the following sense:
+\begin{enumerate}
+\item $x\in B\implies x^c\in B$ [closed under complement]
+\item $\{x_n\}\in B\implies \bigcup_{n\in\mathbb{N}} x_n \in B$ [closed under countable union]
+\end{enumerate}
+\noindent We call this collection $B$ a $\sigma$-algebra of $S$.
+\begin{remark}
+$\sigma$-algebras are closed under countable intersection.
+\end{remark}
+\begin{proof}
+\begin{align}
+\{x_n\}\in B
+&\implies \{x_n^c\}\in B &&\text{(from 1)} \\
+&\implies \cup_{n\in\mathbb{N}} x_n^c \in B &&\text{(from 2)}\\
+&\implies (\cup_{n\in\mathbb{N}} x_n^c )^c\in B &&\text{(from 1)} \\
+&\implies \cap_{n\in\mathbb{N}} x_n \in B &&\text{(from De-Morgan's law)}&&\qedhere
+\end{align}
+\end{proof}
+\begin{theorem}
+Any $\sigma$-algebra for a set, $\Omega$, contains at least $\phi$ and $\Omega$.
+\end{theorem}
+\begin{proof}
+Let $B$ be a $\sigma$-algebra of $\Omega$. Since $B$ is non-empty, we have at least an element $x\in B$.
+\begin{align}
+x\in B
+&\implies x^c\in B \\
+&\implies x\cap x^c=\phi\in B \\
+&\implies x\cup x^c=\Omega\in B &&\qedhere
+\end{align}
+\end{proof}
+\noindent So, for any non-empty set $\Omega$, there is a trivial $\sigma$-algebra, which contains just $\phi$ and $\Omega$. The collection of all subsets, $2^\Omega$, is also a $\sigma$-algebra, since it contains all possible subsets of $\Omega$, along with their complements and countable unions, including $\phi$ and $\Omega$.
+\begin{theorem}
+Intersection of $\sigma$-algebras for a set is a $\sigma$-algebra.
+\end{theorem}
+\begin{proof}
+Let $B_i$ and $B_j$ be two $\sigma$-algebras of $\Omega$ and $B_i\cap B_j=B$. Since $\phi$ and $\Omega$ are present in both $B_i$ and $B_j$ (from theorem 3), they must be present in $B$. Therefore, $B$ is non-empty. Since it is non-empty, $\exists x\in B$. This implies that $x\in B_i\wedge x\in B_j$, which means, $x^c\in B_i\wedge x^c\in B_j$. Therefore, $x^c\in B_i\cap B_j=B$. Similarly, $\{x_n\}\in B\implies \{x_n\}\in B_i\wedge\{x_n\}\in B_j$. This concludes that $\cup_{n\in\mathbb{N}} x_n\in B_i\wedge \cup_{n\in\mathbb{N}} x_n\in B_j\implies \cup_{n\in\mathbb{N}} x_n\in B_i\cap B_j=B$. Therefore, $B$ is a $\sigma$-algebra. We can extend this argument to any collection of $\sigma$-algebras of $\Omega$, i.e., for any collection of $\sigma$-algebras, $\{B_j\}_{j\in\mathcal{J}}$, $\bigcap_{j\in\mathcal{J}}B_j$ is also a $\sigma$-algebra.
+\end{proof}
+\noindent Suppose $S$ is a collection of subsets of $\Omega$, which may or may not be a $\sigma$-algebra of $\Omega$. We want to embed this set $S$ into (possibly) larger collections, so that the new collection becomes a $\sigma$-algebra. Now, there exists a trivial $\sigma$-algebra, $2^\Omega$, which satisfies this requirement. However, there might be other smaller $\sigma$-algebras, $B\subseteq 2^\Omega$, such that $x\in S\implies x\in B$. In fact, it can be shown that there is a smallest of such $\sigma$-algebras.
+\begin{theorem}
+For every collection $S$ of subsets of $\Omega$, there exists a smallest $\sigma$-algebra containing all the elements of $S$, denoted by $\Sigma(S)$, i.e. for any other $\sigma$-algebra, $\Sigma'(S)$, that contains all the elements of $S$, we have $\Sigma(S)\subseteq\Sigma'(S)$.
+\end{theorem}
+\begin{proof}
+Let us consider the collection of all $\sigma$-algebras, $\{B_j\}_{j\in\mathcal{J}}$, which contains all the elements of $S$. This collection is non-empty, because $2^\Omega\in \{B_j\}_{j\in\mathcal{J}}$. Now, if we take the intersection of all $B_j$, then, by theorem 4, the result, $\Sigma(S)=\bigcap_{j\in\mathcal{J}} B_j$, is a $\sigma$-algebra. Since we constructed this by taking the intersection of sets in $\{B_j\}_{j\in\mathcal{J}}$, it clearly contains all the elements of $S$. Now, let's consider another $\sigma$-algebra, $\Sigma'(S)$ which also contains all the elements of $S$. By design, $\Sigma'(S)\in \{B_j\}_{j\in\mathcal{J}}$. Therefore, $\Sigma(S)=\bigcap_{j\in\mathcal{J}} B_j\subseteq\Sigma'(S)$.
+\end{proof}
+\subsection{Borel $\sigma$-algebra and Borel Set}
+Let's consider the collection of all open-intervals, $\mathcal{G}$, in a metric space, $(S, d)$. This collection, $\mathcal{G}$ is clearly not a $\sigma$-algebra, since the compliment of every open set in $\mathcal{G}$ is a close set by definition, and therefore doesn't belong in $\mathcal{G}$. However, by theorem 5, we can embed $\mathcal{G}$ to obtain a minimal $\sigma$-algebra that contains all the elements of $\mathcal{G}$. We can denote this as $\Sigma(\mathcal{G})$, known as the Borel $\sigma$-algebra.
+
+In a similar fashion, we can obtain a Borel $\sigma$-algebra from the set of close sets as well, $\Sigma(\mathcal{F})$. We can show that these two constructions are identical.
+\begin{theorem}
+$\Sigma(\mathcal{G})=\Sigma(\mathcal{F})$.
+\end{theorem}
+\begin{proof}
+$\forall x\in\mathcal{G}\implies x\in\Sigma(\mathcal{G})$. Since $\Sigma(\mathcal{G})$ is a $\sigma$-algebra, then, by definition, $x^c\in\Sigma(\mathcal{G})$. But the set of $x^c$ is $\mathcal{F}$. This means, that $\Sigma(\mathcal{G})$ contains all the elements of $\mathcal{F}$. So, from theorem 5, we have $\Sigma(\mathcal{G})\subseteq \Sigma(\mathcal{F})$.
+
+Now, if we follow the same argument with $\forall y\in \mathcal{F}$, we see that $\Sigma(\mathcal{F})\subseteq \Sigma(\mathcal{G})$. Therefore, we can conclude that $\Sigma(\mathcal{G})=\Sigma(\mathcal{F})$.
+\end{proof}
+\noindent The sets that belong to $\Sigma(\mathcal{G})$ are called Borel sets. It is easy to see that the Borel $\sigma$-algebra include $\phi$, the entire metric space $S$, all the open-sets in $\mathcal{G}$, all the close sets in $\mathcal{F}$, and their countable union and intersections. We can also form higher form of Borel $\sigma$-algebras from $\mathcal{G}_\delta$, $\mathcal{F}_\sigma$ , $\mathcal{G}_{\delta\sigma}$, etc.
+\subsection{Convergence}
+\noindent With the notion of a metric, we can talk about \emph{how far} the elements of the set are from one another, which is essential to define convergence and limit.\\
+\noindent\textbf{Note:} A sequence $\{x_n\}$ ($\forall x_n\in S$) is countably infinite by definition, \emph{i.e.}, $n\in\mathbb{N}$.
+\begin{definition}[Convergence and Limit]
+The sequence $\{x_n\}$ is said to be converging towards $x_0\in S$ iff $\forall\epsilon>0$, $\exists N_\epsilon\in\mathbb{N}$, such that $\forall n >N_\epsilon$, $d(x_n, x_0) < \epsilon$. We denote this as $\{x_n\}\rightarrow x_0$ and we call $x_0$ the limit of the sequence $\{x_n\}$.
+\end{definition}
+\noindent This definition of ordinary convergence requires that the limit point $x_0$ is defined and is has to be present in the set $S$. There is another notion of convergence, called the Cauchy-convergence, which removes this requirement.
+\begin{definition}[Cauchy Convergence]
+The sequence $\{x_n\}$ is called Cauchy-convergent iff $\forall\epsilon>0$, $\exists N_\epsilon\in\mathbb{N}$, such that $\forall n,m >N_\epsilon$, $d(x_n, x_m) < \epsilon$.
+\end{definition}
+\begin{remark}
+The beauty of convergence is that it preserves the algebraic operations defined on the set. More precisely, let $\{x_n\}\rightarrow x_0$ and $\{y_n\}\rightarrow y_0$ are two sequences defined in $\mathbb{R}$. Then the following are true:
+\begin{itemize}
+\item[(a)] $\{x_n+y_n\}\rightarrow x_0+y_0$
+\item[(b)] $\{x_n\cdot y_n\}\rightarrow x_0\cdot y_0$
+\end{itemize}
+\end{remark}
+\end{document}
