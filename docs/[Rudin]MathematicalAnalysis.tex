@@ -1,0 +1,1179 @@
+%\documentclass[6pt,oneside]{report}
+%%\usepackage[a6paper]{geometry}
+%\usepackage[paperwidth=9cm, paperheight=15.0cm, top=0.1cm, left=0.1cm, right=0.1cm, bottom=0.2cm]{geometry}
+%\usepackage{graphicx}
+%\usepackage{amssymb}
+%\usepackage{amsmath}
+%\usepackage{amsthm}
+%\usepackage{mathtools}
+%\usepackage{xcolor}
+%\usepackage{pagecolor}
+%
+%\pagecolor{black}
+%\color{white}
+
+\documentclass[a4paper,12pt]{report}
+\usepackage[top=2cm, left=1.2cm, right=1cm, bottom=2cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{physics}
+\usepackage{thmtools}
+\usepackage[dvipsnames]{xcolor}    %% dvipsnames has Brown colour
+\hypersetup{
+    colorlinks,
+    citecolor=red,
+    filecolor=green,
+    linkcolor=blue,
+    urlcolor=blue
+}
+\usepackage[sc,osf]{mathpazo}   % With old-style figures and real smallcaps.
+\linespread{1.025}              % Palatino leads a little more leading
+
+% Euler for math and numbers
+\usepackage[euler-digits,small]{eulervm}
+%\AtBeginDocument{\renewcommand{\hbar}{\hslash}}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\bm}{\boldsymbol}
+\newcommand{\tb}{\textbf}
+
+\newcommand{\diam}{\text{diam}\:}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% definitions, theorems, examples %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\declaretheorem[
+shaded={
+	rulecolor=black,
+	rulewidth=0.5pt,
+	bgcolor=GreenYellow
+},name=Insight,numbered=no]{insight}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{\color{blue}Theorem}[chapter] % reset theorem numbering for each chapter
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{\color{red}Definition} % definition numbers are dependent on theorem numbers
+
+\newtheorem{example}[theorem]{\color{Orange}Example} % same for examples
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{\color{ForestGreen}Remark} % same for remarks
+
+\newtheorem{corollary}[theorem]{\color{SkyBlue}Corollary} % same for corollary
+\newtheorem{proposition}[theorem]{\color{Brown}Proposition} % same for proposition
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% definitions, theorems, examples %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\title{Mathematical Analysis}
+\author{Soumyajit De}
+
+\maketitle
+\tableofcontents
+
+%\begin{definition}[]
+%\end{definition}
+
+\setcounter{chapter}{-1}
+%\chapter{Theorems of Analysis}
+
+\chapter{Sets and Functions}
+\section{Finite, Countable, and Uncountable Sets}
+\subsection{Preliminary Definitions Related to Functions and Cardinality}
+\begin{definition}[Function]
+For two \tb{non-empty} sets $A$ and $B$, if \tb{each} element $x$ of $A$ are associated with \tb{an} element of $B$, then we can define this association as a function from $A$ to $B$ (or a mapping of $A$ \tb{into} $B$), written as $f:A\to B$.
+\end{definition}
+\begin{insight}
+Imagine packing when relocating, putting items inside boxes before moving all those boxes inside your truck. A function is rule which says which item goes inside which box. You can put two items in the same box but cannot put the same item into two different boxes. Your truck may have some leftover space when you're done packing.
+\end{insight}
+The following definitions are for a function $f:A\to B$.
+\begin{definition}[Domain]
+The set $A$ is called the \tb{domain} of $f$.
+\end{definition}
+\begin{definition}[Values]
+The element in $B$ that is associated with an element $x\in A$ is called the \tb{value} of $x$, written as $f(x)$.
+\end{definition}
+\begin{definition}[Co-Domain]
+The set $B$ is called the \tb{co-domain} of $f$.
+\end{definition}
+\begin{definition}[Range]
+The set of all \emph{values}, $f(A):=\{f(x)\mid x\in A\}$, is called the \tb{range} of $f$.
+\end{definition}
+\begin{remark}
+$f(A)\subseteq B$.
+\end{remark}
+\begin{definition}[Onto Mapping/Surjection]
+If $f(A)=B$, then $f$ is called a mapping of $A$ \tb{onto} $B$ (instead of \tb{into}) or a \tb{surjection}.
+\end{definition}
+\begin{definition}[Image]
+For a set $E\subseteq A$, the set $f(E):=\{f(x)\mid x\in E\}$ is called the \tb{image} of $E$ under $f$.
+\end{definition}
+\begin{definition}[Pre-Image]
+For a set $E\subseteq B$, the set $f^{-1}(E):=\{x\mid f(x)\in E\}$ is called the \tb{pre-image} of $E$ under $f$.
+\end{definition}
+\begin{definition}[1-1 Mapping/Injection]
+If $\forall y\in f(A)$, if the pre-image of $\{y\}$, $f^{-1}(\{y\}):= \{x\mid f(x)=y\}$ consists of just one element (i.e., a \emph{singleton}), then $f$ is called a \tb{1-1 mapping or injection} of $A$ \tb{into} $B$.
+\end{definition}
+\begin{definition}[1-1 Correspondence/Bijection]
+If there exists a \tb{1-1 mapping} of $A$ \tb{onto} $B$, then $A$ and $B$ are said to be in \tb{1-1 correspondence} and $f$ is called a \tb{bijection}. $A$ and $B$ are called \tb{equivalent} and it's written as $A\sim B$.
+\end{definition}
+\begin{remark}
+If $A\sim B$, then $A$ and $B$ are said to have the same \tb{cardinal number}.
+\end{remark}
+\begin{remark} 
+The relation $A\sim B$ has the following properties:
+\begin{itemize}
+\item $A\sim A$ [\tb{Reflexive}]
+\item $A\sim B\implies B\sim A$ [\tb{Symmetric}]
+\item $A\sim B\wedge A\sim C\implies A\sim C$ [\tb{Transitive}]
+\end{itemize}
+\end{remark}
+\subsection{Finite, Countable, Uncountable Sets and Sequences}
+\noindent From now on, for some +ve integer $n$, let $J_n:=\{1,\cdots,n\}$ and let $J:=\{1,\cdots\}$ (set of all +ve integers).
+\begin{definition}[Finite Set]
+A set $A$ is called \tb{finite} \emph{iff} (a) $A=\emptyset$ or (b) $A\sim J_n$ for some $n$.
+\end{definition}
+\begin{definition}[Infinite Set]
+If $A$ is not \emph{finite}, it's \tb{infinite}.
+\end{definition}
+\begin{definition}[Countable Set]
+If $A\sim J$, then $A$ is said to be \tb{countable}.
+\end{definition}
+\begin{remark}
+Countable sets are also called \emph{enumerable} or \emph{denumerable}.
+\end{remark}
+\begin{definition}[Uncountable Set]
+If $A$ is neither \emph{finite} nor \emph{countable}, it's called \tb{uncountable}.
+\end{definition}
+\begin{definition}[At-most Countable Set]
+If $A$ is either \emph{finite} or \emph{countable}, it's called \tb{at-most countable}.
+\end{definition}
+\begin{remark}
+$\Z\sim J$.
+\end{remark}
+\begin{remark}
+A set $A$ is infinite if $A$ is equivalent to one of its proper subsets.
+\end{remark}
+\begin{definition}[Sequence]
+A function $f:J\to X$ is called a sequence. If $f(n)=x_n$, then the sequence is usually written as $\{x_n\}$.
+\end{definition}
+\begin{insight}
+A sequence is a never-ending labelling of items in a set in an orderly fashion.
+\end{insight}
+\begin{remark}
+If $\forall n\in J, x_n\in A$, then $\{x_n\}$ is said to be a sequence in $A$.
+\end{remark}
+\begin{remark}
+Every countable set can be arranged in a sequence.
+\end{remark}
+\subsection{Properties involving Finite, Countable, and Uncountable Sets}
+\begin{theorem}
+Every infinite subset of a countable set is countable.
+\end{theorem}
+\begin{remark}
+Countable sets represent the \emph{smallest} kind of infinity.
+\end{remark}
+\begin{theorem}
+Countable union of countable sets are countable. Let $\{E_n\}$ be a sequence of countable sets. Then $\bigcup_{n=1}^\infty E_n$ is countable.
+\end{theorem}
+\begin{theorem}
+Set of tuples whose elements are taken from a countable set is countable. For $A$, a countable set, let $B_n:= \{(a_1,\cdots,a_n)\}$ where every $a_k\in A$, not necessarily distinct. Then $B_n$ is countable.
+\end{theorem}
+\begin{remark}
+$\Q$ is countable.
+\end{remark}
+\begin{theorem}
+Set of sequences whose elements are taken from a finite set is uncountable. For $A$, a finite set, let $B:= \{\{x_n\}\mid \{x_n\}\text{ is a sequence in } A\}$ (i.e. $B$ is the set of all sequence whose elements are chosen, with repetition, from $A$). $B$ is uncountable.
+\end{theorem}
+
+\chapter{The Real and Complex Number Systems}
+\section{Groups}
+\begin{definition}[Symmetry]
+A \tb{symmetry} is a bijection from a set to itself, $s:X\to X$.
+\end{definition}
+\begin{insight}
+Symmetry is a way of relabelling the items.
+\end{insight}
+\begin{example}
+The following are some common examples for the intuition of symmetries.
+\begin{enumerate}
+\item The trivial symmetry is the identity map that maps every element of a set onto itself.
+\item A set of 3 points arranged in a circle has a cyclic symmetry (we can rotate the circle $1/3$-rd of a revolution, i.e. mapping the points in the circle accordingly).
+\item The set of all permutations of a finite set define symmetries, where any element can map to any other element.
+\item $\forall n\in\Z$ we define a symmetry $x\in\Z\mapsto n+x\in\Z$ (sliding the number line).
+\item $\forall n\in\Q$ we define a symmetry $x\in\Q\mapsto n\cdot x\in\Q$ (stretching the number line).
+\item For a finite-dimensional vector-space over $\R$, $\R^n$, the set of non-singular $n\times n$ matrices ($A$) define symmetries since it maps any vector $\bm{u}\in\R^n\mapsto A\bm{u}\in\R^n$ (Generalised Linear Group of order $n$ or $GL_n(\R)$).
+\end{enumerate}
+\end{example}
+\begin{remark}
+The idea of groups comes from symmetries, where an operator is defined to denote the composition of symmetries. Even when not explicitly specified, there is a symmetry associated with every element in a group. The associativity follows from the fact that function composition is associative. Also, since symmetries are bijections, we have inverses in each case.
+\end{remark}
+\begin{definition}[Group]
+A \tb{group} is a set $G$ with a binary operation $(+)$ that satisfies the following axioms:
+\begin{enumerate}
+\item $\forall x,y\in G, (x+y)\in G$ [\tb{Closure}]
+\item $\forall x,y,z\in G, ((x+y)+z)=(x+(y+z))$ [\tb{Associativity}]
+\item $\exists 0\in G$ such that $\forall x\in G, (x+0)=(0+x)=x$ [\tb{Identity Element}]
+\item $\forall x\in G, \exists (-x)\in G$ such that $(x+(-x))=((-x)+x)=0$ [\tb{Inverse Element}]
+\end{enumerate}
+\end{definition}
+\begin{remark}
+Groups are fully specified using the following notation: $(G,+,0)$.
+\end{remark}
+\begin{proposition}
+For a group $(G,+,0)$ and $\forall x,y,z\in G$, the following properties hold:
+\begin{enumerate}
+\item $(x+y=x+z)\implies y=z$ [\tb{Cancellation Law}]
+\item $(x+y)=x\implies y=0$ [\tb{Uniqueness of Identity}]
+\item $(x+y)=0\implies y=(-x)$ [\tb{Uniqueness of Inverse}]
+\item $-(-x)=x$ [\tb{Repeated Inverse}]
+\end{enumerate}
+\end{proposition}
+\begin{remark}
+If $(\cdot)$ is used to denote the binary operation for the group, it is customary to express the identity element as $1$ and the inverse element of $x$ as $x^{-1}$. The group is specified as $(G,\cdot,1)$.
+\end{remark}
+\begin{definition}[Commutative Group]
+A \tb{commutative group} or an \tb{Abelian Group} is a group that follows an additional axiom:
+\begin{enumerate}
+\item $\forall x,y\in G, (x+y)=(y+x)$ [\tb{Commutativity}]
+\end{enumerate}
+\end{definition}
+
+\section{Fields}
+\begin{definition}[Field]
+A \tb{field} is a set $F$ with two binary operations, $(+)$ and $(\cdot)$, which satisfy the following axioms:
+\begin{enumerate}
+\item $(F,+,0)$ is a commutative group [\tb{Additive Group}]
+\item $(F\setminus\{0\},\cdot,1)$ is a commutative group [\tb{Multiplicative Group}]
+\item $\forall x,y,z\in F, (x\cdot(y+z))=((x\cdot y)+(x\cdot z))$ [\tb{Distributive Property}]
+\end{enumerate}
+\end{definition}
+\begin{remark}
+Fields are fully specified using the following notation: $(F,+,0,\cdot,1)$.
+\end{remark}
+\begin{proposition}
+For a field $(F,+,0,\cdot,1)$ and $\forall x,y\in F$, the following holds:
+\begin{enumerate}
+\item $(x\cdot 0)=(0\cdot x)=0$
+\item $(x\neq 0)\wedge(y\neq 0)\implies (x\cdot y)\neq 0$
+\item $(-x)\cdot y=x\cdot(-y)=-(x\cdot y)$
+\item $(-x)\cdot(-y)=x\cdot y$
+\end{enumerate}
+\end{proposition}
+
+\section{Ordered Sets}
+\begin{definition}[Order]
+For a set $S$, an \tb{order} ($<$) is a relation such that
+\begin{enumerate}
+\item$ \forall x,y\in S$, any one of (a) $x<y$ (b) $x=y$ (c) $y<x$ is true.
+\item $\forall x,y,z\in S, (x<y)\wedge (y<z)\implies (x<z)$.
+\end{enumerate}
+\end{definition}
+\begin{remark}[Partial-order]
+An alternate approach is to define a \tb{partial-order} relation ($\leq$) that has the following properties:
+\begin{enumerate}
+\item $\forall x\in S$, $x\leq x$ [\tb{Reflexive}]
+\item $\forall x,y\in S$, $(x\leq y)\wedge (y\leq x)\implies (x=y)$ [\tb{Anti-symmetric}]
+\item $\forall x,y,z\in S, (x\leq y)\wedge (y\leq z)\implies (x\leq z)$ [\tb{Transitive}]
+\end{enumerate}
+However, having these properties alone is not equivalent to the above definition (which also known as \tb{total-order}). We also need the following axioms:
+\begin{enumerate}
+\item $\forall x,y\in S$, $(x\leq y)\vee (y\leq x)$ [\tb{Connex}]
+\item $\forall x,y\in S, (x\leq y)\iff \neg(y < x)$
+\end{enumerate}
+\end{remark}
+\begin{definition}[Ordered Set]
+An \tb{ordered set} is a set $S$ for which an \emph{order} is defined.
+\end{definition}
+\begin{remark}[Poset]
+A partially-ordered set or a \tb{poset} is a set $S$ for which a \emph{partial-order} is defined.
+\end{remark}
+\begin{definition}[Upper Bound]
+For $E\subseteq S$, where $S$ is an ordered set, if $\exists\beta\in S, \forall x\in E, x\le\beta$, then $\beta$ is called an \tb{upper bound} of $E$.
+\end{definition}
+\begin{definition}[Bounded Above]
+If a set $E\subseteq S$ has an \emph{upper bound}, it's called \tb{bounded above}.
+\end{definition}
+\begin{remark}
+The definition of \tb{lower bound} and \tb{bounded below} follows similarly.
+\end{remark}
+\begin{definition}[Least Upper Bound]
+For a set $E\subseteq S$, where $S$ is an \emph{ordered set} and $E$ is \emph{bounded above}, if $\exists\alpha\in S$, such that
+\begin{enumerate}
+\item $\alpha$ is an upper bound of $E$
+\item for every $\gamma<\alpha$, $\gamma$ is \tb{not} an upper bound of $E$
+\end{enumerate}
+then $\alpha$ is called the \tb{least upper bound} or \tb{supremum} of $E$ or $\alpha=\sup  E$.
+\end{definition}
+\begin{definition}[Greatest Lower Bound]
+Similarly, $\alpha$ is called a \tb{greatest lower bound} or \tb{infimum} for a set $E\subseteq S$ which is bounded below or or $\alpha=\inf  E$.
+\end{definition}
+\begin{definition}[Least Upper Bound Property]
+An ordered set $S$ is said to have the \tb{least upper bound property} (also called \tb{completeness}) if for \tb{every non-empty} set $E\subseteq S$ that is \tb{bounded above}, has its supremum in $S$, i.e. $\exists\alpha\in S, \alpha=\sup E$.
+\end{definition}
+\begin{theorem}
+Let $S$ be an ordered set with the least upper bound property. Let $B\subseteq S$ be a non-empty set that is bounded below. Let $L$ be the set of all lower bounds of $B$. Then $\exists\alpha\in S$, such that $\alpha=\sup L$ and $\alpha=\inf B$. In other words, $\inf B\in S$.
+\end{theorem}
+
+\section{Ordered Field}
+\begin{definition}[Ordered Field]
+An \tb{ordered field} is a field $F$ which is also an \emph{ordered set}, such that
+\begin{enumerate}
+\item $x,y,z\in F, y<z\implies x+y<x+z$
+\item $x,y\in F, (x>0)\wedge(y>0)\implies x\cdot y>0$
+\end{enumerate}
+\end{definition}
+
+\section{The Real Field}
+\begin{definition}[Real Field]
+There exists an \tb{ordered field} $\R$ which has the least upper bound property. Moreover, $\Q\subset\R$ is a subfield. This set is called the \tb{real field} and the elements of this set are called \tb{real numbers}.
+\end{definition}
+\begin{theorem}
+The following two statements hold for the $\R$ and $\Q$:
+\begin{enumerate}
+\item $x,y\in\R,x>0$, then $\exists n\in\Z^+$ such that $n\cdot x>y$ [Archimedean property]
+\item $x,y\in\R,x<y$, then $\exists p\in\Q$ such that $x<p<y$ [$\Q$ is dense in $\R$]
+\end{enumerate}
+\end{theorem}
+\begin{theorem}
+$\forall x\in\R^+$ and $n\in\Z^+$, there exists a unique $y\in\R^+$ s.t. $y^n=x$.
+\end{theorem}
+\begin{corollary}
+$a,b\in\R^+$, $n\in\Z^+$, $(a\cdot b)^{1/n}=a^{1/n}\cdot b^{1/n}$.
+\end{corollary}
+\begin{definition}[Decimal expansion of reals]
+Let $x\in\R^+$. Let $E$ be the set of numbers in the form
+\[
+n_0+n_1/10+n_2/10^2+\cdots+n_k/10^k
+\]
+Then $x=\sup E$.
+\end{definition}
+\section{Extended Real Number System}
+\begin{definition}[Extended real number system]
+The extended real number system consists of the real field $\R$ and two symbols $-\infty$ and $+\infty$ where $\forall x\in\R, -\infty<x<+\infty$.
+\end{definition}
+\begin{remark}
+The following holds for the extended real number system:
+\begin{enumerate}
+\item $+\infty$ is an upper bound for \emph{every} subset of the extended real number system and therefore, every non-empty set has a least upper bound.
+\item Same holds true for $-\infty$ and greatest lower bound.
+\item The extended real number system is \tb{no longer a field}
+\end{enumerate}
+\end{remark}
+\begin{remark}
+It is customary to follow the conventions:
+\begin{enumerate}
+\item $\forall x\in\R$, (a) $x+\infty=\infty$ (b) $x-\infty=-\infty$ (c) $x/\infty=x/-\infty=0$.
+\item $\forall x\in\R^+$, (a) $x\cdot+\infty=+\infty$ (b) $x\cdot-\infty=-\infty$.
+\item $\forall x\in\R^-$, (a) $x\cdot+\infty=-\infty$ (b) $x\cdot-\infty=+\infty$.
+\end{enumerate}
+\end{remark}
+
+\section{The Complex Field}
+\begin{definition}[Complex Numbers]
+Complex numbers are ordered pairs, $(a,b)$, of real numbers, where the following relations and operations for some $x=(a,b)$ and $y=(c,d)$ are defined as:
+\begin{enumerate}
+\item $(x=y)\iff (a=c)\wedge(b=d)$ [Equality]
+\item $x+y=(a+c,b+d)$ [Addition Operation]
+\item $x\cdot y=(ac-bd, ad+bc)$ [Multiplication Operation]
+\end{enumerate}
+\end{definition}
+\begin{remark}
+For $x=(a,b)$, we write $a=\Re(x)$ and $b=\Im(x)$.
+\end{remark}
+\begin{theorem}
+The set of complex numbers, $\C$, is a field with $(0,0)$ being the additive identity and $(1,0)$ being the multiplicative identity.
+\end{theorem}
+\begin{proposition}
+$\forall a,b\in\R$
+\begin{enumerate}
+\item $(a,0)+(b,0)=(a+b,0)$
+\item $(a,0)\cdot(b,0)=(ab,0)$
+\end{enumerate}
+\end{proposition}
+\begin{remark}
+Since complex numbers in the form $(a,0)$ have the same arithmetic properties as $a$, we can identify $(a,0)$ as $a$. This establishes that $\R$ is a subfield of $\C$.
+\end{remark}
+\begin{definition}[$i$]
+We define $i=(0,1)$.
+\end{definition}
+\begin{proposition}
+$i^2=-1$
+\end{proposition}
+
+\section{Euclidean Space}
+\begin{definition}[Euclidean Space]
+\end{definition}
+
+\begin{definition}[Inner Product]
+\end{definition}
+
+\begin{definition}[Norm]
+\end{definition}
+
+\begin{theorem}
+\end{theorem}
+
+\chapter{Basic Topology}
+\section{Metric Spaces}
+\begin{definition}[Metric Space]
+A set $X$ is is called a \tb{metric space} if there exists a function $d:X\times X\to \R_0^+$ such that for any $p,q,r\in X$
+\begin{enumerate}
+\item $d(p,q)=0\iff p=q$
+\item $d(p,q)=d(q,p)$
+\item $d(p,q)\le d(p,r)+d(r,q)$
+\end{enumerate}
+The function $d$ is called a \tb{metric}/\tb{distance-function}.
+\end{definition}
+\begin{definition}[Points]
+The elements of a metric space are called \tb{points}.
+\end{definition}
+\begin{remark}
+Every $Y\subseteq X$ is also a metric space with the same metric.
+\end{remark}
+
+\subsection{Useful definitions for Euclidean Space}
+\begin{definition}[Segment and Interval in $\R$]
+For any $a,b\in\R$ with $a<b$, a \tb{segment} is defined as $(a,b):=\{x\mid a<x<b\}$ and an \tb{interval} is defined as $[a,b]:=\{x\mid a\le x\le b\}$.
+\end{definition}
+\begin{remark}
+The notion of \tb{half-open} intervals (such as $(a,b]$ or $[a,b)$) are sometimes useful.
+\end{remark}
+\begin{definition}[K-cells in $\R^k$]
+For any $a_i,b_i\in\R$ with $a_i<b_i$ for all $i\in[1,\cdots,k]$, a \tb{k-cell} is defined as $\{\mathbf{x}\mid a_i\le x_i\le b_i\}$ where $\mathbf{x}=(x_1,\cdots,x_k)^T\in\R^k$.
+\end{definition}
+\begin{definition}[Open/Closed-Balls in $\R^k$]
+For any $\mathbf{x}\in\R^k$, an \tb{open ball} (or, a \tb{closed ball}, respectively) with its center at $\mathbf{x}$ having a radius of $r>0$ is defined as $B_r(\mathbf{x}):=\{\mathbf{y}\in\R^k\mid |\mathbf{x}-\mathbf{y}|<r\}$ (or $\bar{B}_r(\mathbf{x}):=\{\mathbf{y}\in\R^k\mid |\mathbf{x}-\mathbf{y}|\le r\}$).
+\end{definition}
+\begin{definition}[Convex Sets in $\R^k$]
+A set $E\in\R^k$ is called a \tb{convex set} \emph{iff} $\forall \mathbf{x},\mathbf{y}\in E$ and $\forall\lambda\in(0,1)$, $\lambda\mathbf{x}+(1-\lambda)\mathbf{y}\in E$.
+\end{definition}
+\begin{theorem}
+K-cells and open/closed balls are convex sets in $\R^k$.
+\end{theorem}
+
+\subsection{Useful definitions for General Metric Space}
+In all the following definitions, $X$ is a metric space.
+\begin{definition}[Neighbourhood]
+A \tb{neighbourhood} of a point $p\in X$ with a radius $r>0$ is defined as $N_r(p):=\{q\in X\mid d(p,q)<r\}$.
+\end{definition}
+\begin{definition}[Bounded Set]
+A set $E\subseteq X$ is \tb{bounded} \emph{iff} $\exists p\in X$ and $\exists M>0$ such that $E\subseteq N_M(p)$.
+\end{definition}
+\begin{definition}[Limit Points]
+A point $p\in X$ is a \tb{limit-point} of a set $E\subseteq X$ \emph{iff} \emph{every} neighbourhood of $p$ contains at least one point from $E$ other than $p$ itself. Symbolically, $\forall r>0$, $\exists q\neq p\in N_r(p)$ such that $q\in E$.
+\end{definition}
+\begin{insight}
+Limit point of a set $E$ (which may or may not be inside $E$) means that we can get \tb{arbitrarily} close to that point, without stepping outside of $E$. Limit points also form the border (but not just limited to) of $E$.
+\end{insight}
+\begin{definition}[Interior Points]
+A point $p\in E$ is an \tb{interior point} of $E$ \emph{iff} there exists \emph{a} neighbourhood which lies completely within $E$, or symbolically, $\exists r>0$ such that $N_r(p)\subseteq E$.
+\end{definition}
+\begin{insight}
+Interior point of a set $E$ (which has to be inside $E$) means that we have a little breathing space to step outside of that point, without crossing the border of $E$.
+\end{insight}
+\begin{remark}
+The \tb{set of all limit points} of a set $E\subseteq X$ is denoted as $E^{\uparrow}$.
+\end{remark}
+\begin{remark}
+The \tb{set of all interior points} of a set $E\subseteq X$ is denoted as $E^0$.
+\end{remark}
+\begin{definition}[Isolated Points]
+All points $p\in E$ that are \tb{not} \emph{limit points} of $E$ (i.e. $p\in E\wedge p\notin E^{\uparrow}$) are called \tb{isolated points} of $E$.
+\end{definition}
+\begin{insight}[Isolated]
+Can't get close to those points without crossing $E$'s border.
+\end{insight}
+\begin{definition}[Closed Set]
+If a set $E\subseteq X$ contains \tb{all} of its own \emph{limit points} (i.e. $p\in E^{\uparrow}\implies p\in E$) it is called a \tb{closed set}.
+\end{definition}
+\begin{insight}[Closed]
+All of $E$'s border belongs to $E$.
+\end{insight}
+\begin{remark}
+A closed set can very well contain any number of \emph{isolated points}. Since those are \emph{not} limit points of that set, this doesn't violate the definition.
+\end{remark}
+\begin{remark}
+A set that has \emph{no} limit points (i.e. $E^{\uparrow}=\emptyset$) is closed by definition.
+\end{remark}
+\begin{definition}[Perfect Set]
+If \tb{all points} of a \tb{closed} set $E$ are limit points (i.e. $p\in E\implies p\in E^{\uparrow}$), then $E$ is called a \tb{perfect set}.
+\end{definition}
+\begin{insight}[Perfect]
+Every point in $E$ is reachable without stepping outside of $E$.
+\end{insight}
+\begin{remark}
+Perfect sets are not allowed to contain isolated points.
+\end{remark}
+\begin{definition}[Open Set]
+If \tb{all points} of $E$ are \emph{interior points}, then $E$ is said to be an \tb{open set}. Symbolically, for an open set, $p\in E\implies p\in E^0$.
+\end{definition}
+\begin{insight}[Open]
+Every point in $E$ has a little breathing space around it within $E$.
+\end{insight}
+\begin{definition}[Closure]
+The set $E^{\oslash}:=E\cup E^{\uparrow}$ is called the \tb{closure of $E$}.
+\end{definition}
+\begin{definition}[Dense Set]
+A set $E$ is said to be a \tb{dense set in} $X$ \emph{iff} if \tb{every point in} $X$ lies within \tb{the closure of} $E$ (i.e. $p\in X\implies p\in E^{\oslash}$).
+\end{definition}
+
+\subsection{Properties involving Metric Spaces}
+\begin{theorem}
+Every neighbourhood is an open set.
+\end{theorem}
+\begin{theorem}
+If $p$ is a limit point of $E$, then every neighbourhood of $p$ contains infinitely many points of $E$.
+\end{theorem}
+\begin{corollary}
+A finite set has no limit points.
+\end{corollary}
+\begin{theorem}
+$F$ is closed $\iff$ $F^c$ is open.
+\end{theorem}
+\begin{theorem}
+The following statements about open/closed sets are true:
+\begin{enumerate}
+\item For a collection of open sets $\{G_\alpha\}$, $\bigcup_\alpha G_\alpha$ is open.
+\item For a collection of closed sets $\{F_\alpha\}$, $\bigcap_\alpha F_\alpha$ is closed.
+\item For a finite collection of open sets $\{G_i\}_{i=1}^n$, $\bigcap_{i=1}^n G_i$ is open.
+\item For a finite collection of closed sets $\{F_i\}_{i=1}^n$, $\bigcup_{i=1}^n F_i$ is closed.
+\end{enumerate}
+\end{theorem}
+\begin{theorem}
+For a $E\subseteq X$
+\begin{enumerate}
+\item $E^{\oslash}$ is closed.
+\item $E=E^{\oslash}$ \emph{iff} $E$ is closed.
+\item For every closed set $F\subseteq X$, $E\subseteq F\implies E^{\oslash}\subseteq F$.
+\end{enumerate}
+\end{theorem}
+\begin{theorem}
+Let $E$ be a nonempty set of real numbers which is bounded above. Let $y=\sup  E$. Then $y\in E^{\oslash}$ (and $y\in E$, if $E$ is closed).
+\end{theorem}
+\begin{definition}[Relatively Open]
+Suppose $E\subset Y\subset X$. $E$ is \tb{open relative to $Y$} if $\forall p\in E$, $\exists r>0$ such that $\exists q\in Y$ for which $d(p,q)<r\implies q\in E$.
+\end{definition}
+\begin{example}
+A set $E$ can be relatively open to $Y$ without having to be open in $X$. For example, the \emph{segment} $(a,b)$ is not open in $\R^2$ (since any neighbourhood defined on $\R^2$ around a point in the segment ought to contain points from the orthogonal direction - which are not in the segment). However, it is \tb{relatively open to $\R$}.
+\end{example}
+\begin{theorem}
+For $E\subset Y\subset X$, $E$ is \tb{open relative to} $Y\iff E=Y\cap G$ for some open set $G\subset X$.
+\end{theorem}
+
+\section{Compact Sets}
+\subsection{Useful Definitions}
+In all the following definitions, $X$ is a metric space.
+\begin{definition}[Open Cover]
+A collection of \tb{open} sets $\{G_\alpha\}$ is called an \tb{open cover} of a set $E\subseteq X$ \emph{iff} $E\subset \bigcup_{\alpha\in A} G_\alpha$ for some index set $A$.
+\end{definition}
+\begin{definition}[Compactness]
+$K\subseteq X$ is \tb{compact} \emph{iff} \tb{every} open cover of $K$ contains a \tb{finite} sub-cover. Formally, for any \tb{open cover} of $K$, $\{G_\alpha\}_{\alpha\in A}$, $\exists \alpha_1,\cdots,\alpha_n$ for some $n>0$ such that $K\subset \bigcup_{i=1}^n G_{\alpha_i}$.
+\end{definition}
+\begin{definition}[Countable Compactness]
+$K\subseteq X$ is \tb{compact} \emph{iff} every \tb{countable} open cover of $K$ contains a \tb{finite} sub-cover. Formally, for any \tb{countable open cover} of $K$, $\{G_\alpha\}_{\alpha\in\N}$, $\exists \alpha_1,\cdots,\alpha_n$ for some $n>0$ such that $K\subset \bigcup_{i=1}^n G_{\alpha_i}$.
+\end{definition}
+\begin{definition}[Sequential Compactness]
+$K\subset X$ is \tb{sequentially compact} if \tb{every infinite subset} $E\subset K$ has a limit point in $K$, or alternatively, \tb{every} sequence in $K$ has a subsequence which converges to some point in $K$.
+\end{definition}
+\subsection{Properties Related to General Metric Space}
+\begin{theorem}
+For $K\subset Y\subset X$, $K$ is \tb{compact relative to $X$} $\iff$ $K$ is \tb{compact relative to $Y$}.
+\end{theorem}
+\begin{remark}
+This allows us to focus on a compact set without having to pay attention to any embedding space. Therefore, compact sets can be considered as "spaces" of their own rights.
+\end{remark}
+\begin{theorem}
+Every compact set is closed.
+\end{theorem}
+\begin{theorem}
+Every closed subset of a compact set is compact.
+\end{theorem}
+\begin{corollary}
+$F\subset X$ is closed and $K\subset X$ is compact $\implies F\cap K$ is compact.
+\end{corollary}
+\begin{theorem}
+For a collection of compact sets, $\{K_\alpha\}$, if  $\bigcap_{i=1}^n K_{\alpha_i}\neq\emptyset$ for \tb{every finite subcollection}, $\{K_{\alpha_i}\}_{i=1}^n$, then $\bigcap_\alpha K_\alpha\neq\emptyset$.
+\end{theorem}
+\begin{corollary}
+For a sequence of non-empty compact sets, $\{K_n\}$, $\forall n>0, K_n\supset K_{n+1}\implies \bigcap_{i=1}^\infty K_i\neq\emptyset$.
+\end{corollary}
+\begin{theorem}
+For metric spaces, compactness $\iff$ sequential-compactness.
+\end{theorem}
+\subsection{Properties Related to Euclidean Space}
+\begin{theorem}[$\R$]
+For a sequence of intervals $\{I_n\}$ such that $I_n\supset I_{n+1}$, $\forall n>0$. Then $\bigcap_{i=1}^\infty I_i\neq\emptyset$.
+\end{theorem}
+\begin{theorem}[$\R^k$]
+For a sequence of k-cells $\{I_n\}$ such that $I_n\supset I_{n+1}$, $\forall n>0$. Then $\bigcap_{i=1}^\infty I_i\neq\emptyset$.
+\end{theorem}
+\begin{theorem}[$\R^k$]
+Every k-cell is compact.
+\end{theorem}
+\begin{theorem}[$\R^k$]
+For any $E\subset \R^k$, the following are equivalent:
+\begin{enumerate}
+\item $E$ is \tb{closed and bounded}.
+\item $E$ is \tb{compact}.
+\item $E$ is \tb{sequentially compact}.
+\end{enumerate}
+\end{theorem}
+\begin{remark}
+Equivalence of 1 and 2 is called the \tb{Heine-Borel theorem}.
+\end{remark}
+\begin{remark}
+Equivalence of 1 and the others is not true for general metric spaces.
+\end{remark}
+\begin{theorem}[$\R^k$]
+Every \tb{bounded}, \tb{infinite} subset of $\R^k$ has a limit point in $\R^k$ [Bolzano-Weierstrass].
+\end{theorem}
+
+\section{Perfect Sets}
+\begin{theorem}
+If $P$ is a nonempty, perfect set in $\R^k$, then $P$ is uncountable.
+\end{theorem}
+\begin{corollary}
+Every interval $[a,b]$ is uncountable.
+\end{corollary}
+
+\section{Connected Sets}
+\begin{definition}[Separated Sets]
+$A,B\subset X$ are \tb{separated} if $A\cap B^{\oslash}=\emptyset\wedge A^{\oslash}\cap B=\emptyset$.
+\end{definition}
+\begin{insight}[Separated]
+Cannot hop off of one and hop on to another without stepping in something in between.
+\end{insight}
+\begin{definition}[Connected Set]
+$E\subset X$ is \tb{connected} if it is not a union of nonempty \emph{separated sets}.
+\end{definition}
+\begin{remark}
+Separated $\implies$ disjoint. Converse does not hold. For example, $[0,1]$ and $(1,2)$ are disjoint but not separated.
+\end{remark}
+\begin{theorem}
+For a set $E\subset \R$,
+\[
+E \tb{ is connected} \iff \left(\forall x,y\in E, (x<z<y)\implies z\in E\right)
+\]
+\end{theorem}
+
+
+
+
+\chapter{Numerical Sequences and Series}
+\section{Convergent Sequences}
+\begin{definition}[Convergent Sequence]
+A sequence $\{p_n\}$ in a metric space $X$ is called \tb{convergent} if $\exists p\in X$ such that $\forall\epsilon>0,\exists N$ such that $n\ge N\implies d(p_n,p)<\epsilon$. We write it as $p_n\to p$ or $\lim\limits_{n \to \infty}p_n=p$.
+\end{definition}
+\begin{insight}
+With every step you take, you get closer to your destination. Once you've taken a certain number of steps, we guarantee that you'd be at most epsilon miles away from your destination. Your final destination most certainly is within your reach.
+\end{insight}
+\begin{remark}
+If $\{p_n\}$ does not converge, it is said to \tb{diverge}.
+\end{remark}
+\begin{remark}
+Since converge requires the point $p$ to be in $X$, the same sequence might converge in a metric space but may not in another, if the other space does not contain $p$.
+\end{remark}
+\begin{definition}[Range of a sequence]
+The set of all points $p_n$ is called the \tb{range} of $\{p_n\}$.
+\end{definition}
+\begin{remark}
+$\{p_n\}$ is bounded if its range is bounded.
+\end{remark}
+\subsubsection{Sequences in general metric space}
+\begin{theorem}
+Let $\{p_n\}$ be a sequence in a metric space $X$.
+\begin{enumerate}
+\item $\{p_n\}\to p\in X$ \emph{iff} \tb{every} neighbourhood of $p$ contains $p_n$ for all but finitely many $n$
+\item $(\{p_n\}\to p)\wedge(\{p_n\}\to p')\implies p=p'$
+\item If $\{p_n\}$ converges, then $\{p_n\}$ is bounded
+\item If $E\subseteq X$ and $p$ is a limit point of $E$, then there exists a sequence $\{p_n\}$ in $E$ such that $\{p_n\}\to p$
+\end{enumerate}
+\end{theorem}
+\subsubsection{Sequences in $\mathbb{C}$}
+\begin{theorem}
+Let $\{s_n\}$ and $\{t_n\}$ be complex sequences such that $\{s_n\}\to s$ and $\{t_n\}\to t$. Then
+\begin{enumerate}
+\item $\{s_n+t_n\}\to s+t$
+\item $\{s_n\cdot t_n\}\to s\cdot t$
+\item $\{c\cdot s_n\}\to c\cdot s$
+\item $\{1/s_n\}\to 1/s$ where $s_n\neq 0$ and $s\neq 0$
+\end{enumerate}
+\end{theorem}
+\subsubsection{Sequences in $\R^k$}
+\begin{theorem}
+Let $\mathbf{x}_n\in\R^k$ and $\mathbf{x}_n=(\alpha_{1,n},\cdots,\alpha_{k,n})$ and $\mathbf{x}=(\alpha_1,\cdots,\alpha_k)$. Then $\{\mathbf{x}_n\}\to \mathbf{x}$ \emph{iff} $\alpha_{j,n}\to \alpha_j$ for $1\le j\le k$.
+\end{theorem}
+\begin{theorem}
+Suppose $\{\mathbf{x}_n\}$ and $\{\mathbf{y}_n\}$ are sequences in $\R^k$ and $\{\beta_n\}$ is a sequence of real numbers such that $\{\mathbf{x}_n\}\to \mathbf{x}$, $\{\mathbf{y}_n\}\to \mathbf{y}$, $\{\beta_n\}\to \beta$. Then
+\begin{enumerate}
+\item $\{\mathbf{x}_n+\mathbf{y}_n\}\to\mathbf{x}+\mathbf{y}$
+\item $\{\mathbf{x}_n\cdot\mathbf{y}_n\}\to\mathbf{x}\cdot\mathbf{y}$
+\item $\{\beta_n\cdot\mathbf{x}_n\}\to \beta\cdot\mathbf{x}$
+\end{enumerate}
+\end{theorem}
+\section{Subsequences}
+\begin{definition}[Subsequence]
+Given a sequence $\{p_n\}$, consider a sequence of positive integers, $\{n_k\}$, such that $n_1<n_2<\cdots$. Then the sequence $\{p_{n_i}\}$ is called a \tb{subsequence} of $\{p_n\}$.
+\end{definition}
+\begin{insight}
+Imagine someone tracing your steps. But instead of stepping on each of your footprints, they choose to hop and skip a few as they wish.
+\end{insight}
+\begin{definition}[Subsequential limit]
+If $\{p_{n_i}\}\to p$, the $p$ is the \tb{subsequential limit} of $\{p_n\}$.
+\end{definition}
+\begin{remark}
+$\{p_n\}\to p\iff$ \tb{every} subsequential limit of $\{p_n\}$ is $p$.
+\end{remark}
+\begin{theorem}
+\tb{Every} sequence in a \tb{compact} metric space, $K$, has a subsequence which converges to some point in $K$.
+\end{theorem}
+\begin{theorem}
+\tb{Every bounded} sequence in $\R^k$ has a subsequence which converges to some point in $\R^k$.
+\end{theorem}
+\begin{theorem}
+The subsequential limits of a sequence $\{p_n\}$ in a metric space $X$ form a closed subset of $X$.
+\end{theorem}
+\section{Cauchy Sequences}
+\begin{definition}[Cauchy Sequence]
+A sequence $\{p_n\}$ in a metric space $X$ is called a \tb{Cauchy} sequence if $\forall\epsilon>0$, $\exists N$, such that $\forall n,m\ge N$, $d(p_n,p_m)<\epsilon$.
+\end{definition}
+\begin{insight}
+With every step you take, your step-size would get smaller and smaller. After taking a certain number of steps, we guarantee that any 2 steps of yours in the future would be no more than epsilon miles apart. Your final destination may still very well be out of your reach.
+\end{insight}
+\begin{definition}[Diameter]
+$E\subset X$, $E\neq\emptyset$. $\diam E:= \sup \: \{d(p,q)\mid p,q\in E\}$.
+\end{definition}
+\begin{remark}
+Let $\{p_n\}$ is a sequence in $X$ and $E_n$ consists of the points $p_N,p_{N+1},\cdots$.
+\[
+ \{p_n\} \text{ is a Cauchy sequence} \iff \diam E_N\to 0.
+\]
+\end{remark}
+\begin{theorem}
+Let $E^{\oslash}$ be the closure of a set $E\subset X$, where $X$ is a metric space. Then $\diam E^{\oslash}=\diam E$.
+\end{theorem}
+\begin{theorem}
+Let $K_n$ be a sequence of compact sets in $X$ such that $K_n\supset K_{n+1}$.
+\[
+\diam K_n\to 0\implies \bigcap_{n=1}^\infty K_n \text{ is singleton}.
+\]
+\end{theorem}
+\begin{theorem}
+In any metric space $X$, $\{p_n\}$ is convergent $\implies$ $\{p_n\}$ is a Cauchy sequence.
+\end{theorem}
+\begin{theorem}
+Every \tb{Cauchy sequence} in a \tb{compact} metric space, $K$, converges to some point in $K$.
+\end{theorem}
+\begin{theorem}
+Every \tb{Cauchy sequence} in a $\R^k$ converges to some point in $\R^k$.
+\end{theorem}
+\begin{definition}[Complete Metric Space]
+A metric space where \tb{every Cauchy sequence} converges to some point is called \tb{complete} metric space.
+\end{definition}
+\begin{definition}[Monotonic]
+A sequence $\{s_n\}$ of real numbers is said to be
+\begin{enumerate}
+\item \tb{monotonically increasing} if $s_n\le s_{n+1}$
+\item \tb{monotonically decreasing} if $s_n\ge s_{n+1}$
+\end{enumerate}
+\end{definition}
+\begin{theorem}
+Suppose $\{s_n\}$ is monotonic. $\{s_n\}$ converges $\iff$ $\{s_n\}$ is bounded.
+\end{theorem}
+\section{Upper and Lower Limits}
+\begin{definition}[$s_n\to +\infty$]
+Let $\{s_n\}$ be a sequence of real numbers, such that $\forall M\in\R, \exists N\in\Z^+$ such that $n \ge N\implies s_n \ge M$. We write it as $s_n\to +\infty$.
+\end{definition}
+\begin{definition}[$s_n\to -\infty$]
+Let $\{s_n\}$ be a sequence of real numbers, such that $\forall M\in\R, \exists N\in\Z^+$ such that $n \ge N\implies s_n \le M$. We write it as $s_n\to -\infty$.
+\end{definition}
+\begin{remark}
+Difference in notation between $\{s_n\}\to p$ and $s_n\to +\infty$.
+\end{remark}
+\begin{remark}
+$\{s_n\}\to p$ is a convergent sequence whereas $s_n\to +\infty$ or $s_n\to -\infty$ are divergent sequences.
+\end{remark}
+\begin{definition}[Upper and Lower Limits]
+Let $\{s_n\}$ be a sequence of real numbers. We from another sequence $\{\bar{s}_n\}$, where $\bar{s}_n=\sup \{s_k \mid k > n\}$. The \tb{upper-limit} of the original sequence, then, is defined as
+\[
+\limsup\limits_{n\to\infty} s_n = \lim\limits_{n\to\infty} \bar{s}_n
+\]
+The \tb{lower-limit}, or $\liminf$ of a sequence is defined in a similar fashion using $\inf$.
+\end{definition}
+\begin{remark}(Alternate Definition)
+Let $\{s_n\}$ be a sequence of real numbers. Let $E$ be the set of numbers $x\in\R_{\cup\{-\infty,+\infty\}}$ such that $s_{n_k}\to x$ for some subsequence $\{s_{n_k}\}$. This set $E$ contains all \emph{subsequential limits} and possibly $-\infty$ and $+\infty$. We call $s^*=\sup E$ and $s_*=\inf E$ as the \tb{upper-limit} and \tb{lower-limit} of $\{s_n\}$, respectively. We write it as \[\limsup\limits_{n \to \infty} s_n=s^*\] and \[\liminf\limits_{n \to \infty} s_n=s_*\]
+\end{remark}
+\begin{theorem}
+For a sequence of real numbers $\{s_n\}$,
+\begin{enumerate}
+\item $s^*, s_*\in E$
+\item If $x > s^*, \exists N\in\Z^+$, such that $n \ge N\implies s_n < x$.
+\item If $x < s_*, \exists N\in\Z^+$, such that $n \ge N\implies s_n > x$.
+\end{enumerate}
+\end{theorem}
+\begin{theorem}
+If $s_n \le t_n$ for $n \ge N$ for some fixed $N$, then
+\begin{enumerate}
+\item $\liminf\limits_{n \to \infty} s_n \le \liminf\limits_{n \to \infty} t_n$
+\item $\limsup\limits_{n \to \infty} s_n \le \limsup\limits_{n \to \infty} t_n$
+\end{enumerate}
+\end{theorem}
+\section{Some Special Sequences}
+The following limits are commonly used:
+\begin{enumerate}
+\item $\lim\limits_{n\to\infty}1/n^p=0$, where $p>0$.
+\item $\lim\limits_{n\to\infty}n^{1/p}=1$, where $p>0$.
+\item $\lim\limits_{n\to\infty} n^{1/n}=1$.
+\item $\lim\limits_{n\to\infty} n!^{1/n} = +\infty$.
+\item $\lim\limits_{n\to\infty} a^n=0$, where $|a|<1$.
+\item $\lim\limits_{n\to\infty} a^{1/n} = 1$.
+\item $\lim\limits_{n\to\infty} (1+1/n)^n = e$.
+\item $\lim\limits_{n\to\infty} (1+a/n)^{bn}  = e^{ab}$.
+\item $\lim\limits_{n\to\infty} \arctan(n)=\pi/2$.
+\item $\lim\limits_{n\to\infty} n^\alpha/a^n=0$, where $a>1$ and $\alpha\in\R$.
+\item $\lim\limits_{n\to\infty} P(n)/e^n = 0$, where $P(n)$ is a polynomial.
+\item $\lim\limits_{n\to\infty} \log(n)/n^a = 0$, where $a>0$.
+\item $\lim\limits_{n\to\infty} a^n/n! = 0$.
+\end{enumerate}
+\section{Series}
+\begin{definition}
+\end{definition}
+
+\section{Series of Nonnegative Terms}
+
+\section{The Number $e$}
+
+\section{The Root and Ratio Tests}
+
+\section{Power Series}
+
+\section{Summation By Parts}
+
+\section{Absolute Convergence}
+
+\section{Addition and Multiplication of Series}
+
+\section{Rearrangements}
+
+\chapter{Continuity}
+$X$ and $Y$ are metric spaces with metrics $d_X$ and $d_Y$, respectively.
+\section{Limit of a Function}
+\begin{definition}[Limit of a Function]
+Let $E\subset X$, $f:E\to Y$ and $p\in E^{\uparrow}$ (limit point in $E$). If
+\[
+\exists q\in Y.\:\forall\epsilon>0.\:\exists\delta>0.\:\forall x\in E.\:\left(0<d_X(f(x),p)<\delta\implies d_Y(f(x),q)<\epsilon\right).
+\]
+then the \tb{limit} of $f$ at $p$ is defined to be $\lim\limits_{x\to p}f(x)=q$.
+\end{definition}
+\begin{insight}
+As you move close to a point, your shadow also moves close to some point in the shadow-verse.
+\end{insight}
+\begin{remark}
+$p$ doesn't have to be in the domain (in which case $f(p)$ is not even defined). We can still have $f$'s limit defined at $p$.
+\end{remark}
+\begin{remark}
+Even if $p$ is within the domain and $f(p)$ exists, it is possible that $\lim\limits_{x\to p}f(x)\neq f(p)$.
+\end{remark}
+\begin{remark}
+$q$ doesn't have to be inside the range of $f$.
+\end{remark}
+\begin{remark}
+If $E$ is a set of isolated points, i.e. $E^{\uparrow}=\emptyset$, then any function $f:E\to Y$ wouldn't have any limits defined at any point.
+\end{remark}
+\begin{theorem}
+Consider every sequence of points $\{p_n\}$ in $E$ converging towards $p$ (but $p_n\neq p$). Then their images in $Y$ under $f$, $p\mapsto f(p_n)$, will also converge towards some $q\in Y$ \emph{iff} the limit of $f$ at $p$ is $q$. Symbolically,
+\[\lim\limits_{x\to p} f(x)=q \iff \forall\{p_n\}\in E.\:p_n\neq p.\left(\lim\limits_{n\to\infty} p_n=p\implies \lim\limits_{n\to\infty} f(p_n)=q\right).\]
+\end{theorem}
+\begin{remark}
+If $f$ has a limit at $p$, it is unique.
+\end{remark}
+\subsubsection{Limits of Real and Complex Valued Functions}
+Let $E\subset X$ be a metric space and $f:E\to\C$ and $g:E\to\C$ be two complex valued functions.
+\begin{definition}
+We define the following functions:
+\begin{enumerate}
+\item $f+g:E\to\C$ as $(f+g)(x)=f(x)+g(x)$
+\item $f-g:E\to\C$ as $(f-g)(x)=f(x)-g(x)$
+\item $fg:E\to\C$ as $(fg)(x)=f(x)g(x)$
+\item $f/g:E\to\C$ as $(f/g)(x)=f(x)/g(x)$ where $g(x)\neq 0$
+\end{enumerate}
+\end{definition}
+\begin{theorem}
+Let $p\in E^{\uparrow}$ and $\lim\limits_{x\to p}f(x)=s$ and $\lim\limits_{x\to p}g(x)=t$. Then
+\begin{enumerate}
+\item $\lim\limits_{x\to p}(f+g)(x)=s+t$
+\item $\lim\limits_{x\to p}(f-g)(x)=s-t$
+\item $\lim\limits_{x\to p}(fg)(x)=st$
+\item $\lim\limits_{x\to p}(f/g)(x)=s/t$ where $t\neq 0$
+\end{enumerate}
+\end{theorem}
+\subsubsection{Limits of Euclidean Vector Valued Functions}
+Let $E\subset X$ be a metric space and $\bm{f}:E\to\R^k$ and $\bm{g}:E\to\R^k$ be two Euclidean vector valued functions.
+\begin{definition}
+We define the following functions:
+\begin{enumerate}
+\item $\bm{f}+\bm{g}:E\to\R^k$ as $(\bm{f}+\bm{g})(x)=\bm{f}(x)+\bm{g}(x)$
+\item $\bm{f}\cdot\bm{g}:E\to\R$ as $(\bm{f}\cdot\bm{g})(x)=\bm{f}(x)\cdot\bm{g}(x)$
+\end{enumerate}
+\end{definition}
+\begin{theorem}
+Let $p\in E^{\uparrow}$ and $\lim\limits_{x\to p}\bm{f}(x)=\bm{u}$ and $\lim\limits_{x\to p}\bm{g}(x)=\bm{v}$. Then
+\begin{enumerate}
+\item $\lim\limits_{x\to p}(\bm{f}+\bm{g})(x)=\bm{u}+\bm{v}$
+\item $\lim\limits_{x\to p}(\bm{f}\cdot\bm{g})(x)=\bm{u}\cdot\bm{v}$
+\end{enumerate}
+\end{theorem}
+\section{Continuity}
+\begin{definition}[Continuity]
+Let $E\subset X$, $f:E\to Y$ and $p\in E$. If
+\[ 
+\forall\epsilon>0.\:\exists\delta>0.\:\forall x\in E.\:\left(d_X(f(x),p)<\delta\implies d_Y(f(x),f(p))<\epsilon\right).
+\]
+then the function $f$ is \tb{continuous at $p$}.
+\end{definition}
+\begin{insight}
+As you move close to a point, your shadow moves close to the shadow of that point.
+\end{insight}
+\begin{definition}[Continuous on $E$]
+$f$ is \tb{continuous on $E$} if it is continuous $\forall p\in E$.
+\end{definition}
+\begin{insight}
+If you're neighbours, you'd end up as neighbours.
+\end{insight}
+\begin{remark}
+The function can only be continuous at points \emph{within} its domain.
+\end{remark}
+\begin{remark}
+If $p$ is an isolated point in $E$, then every $f:E\to Y$ is continuous at $p$.
+\end{remark}
+\begin{theorem}
+If $p$ is a limit point of $E$, then $f$ is continuous at $p$ $\iff\lim\limits_{x\to p} f(x)=f(p)$.
+\end{theorem}
+\begin{remark}
+Unlike the notion of limits of a function, where a point $p$ outside of its domain can also have its limits defined under the image, the notion of continuity has nothing to do with points outside the domain. So instead of subsets $E\subset X$, we can just talk about continuous functions mapping from one metric space $X$ to another $Y$.
+\end{remark}
+\subsubsection{Continuity of Function Composition}
+Let $X,Y,Z$ be metric spaces. For $E\subset X$, let $f:E\to Y$ and $g:f(E)\to Z$.
+\begin{theorem}
+If $f$ is continuous at $p\in E$ and $g$ is continuous at $f(p)$, then $g\circ f$ is continuous at $p$.
+\end{theorem}
+\subsubsection{Continuity of Functions on Open/Closed Sets}
+\begin{theorem}
+For $f:X\to Y$, $f$ is continuous \emph{iff} for every open set $V\in Y$, the inverse image $f^{-1}(V)$ is also an open set in $X$.
+\end{theorem}
+\begin{corollary}
+In above case, for every closed set $C\in Y$, $f^{-1}(C)$ is also a closed set in $X$.
+\end{corollary}
+\begin{insight}
+Continuous maps preserve openness/closeness.
+\end{insight}
+\subsubsection{Continuity of Real and Complex Valued Functions}
+Let $f:X\to\C$ and $g:X\to\C$ be two complex valued functions.
+\begin{theorem}
+If $f$ and $g$ are continuous on $X$, then $f+g$, $f-g$, $fg$ and $f/g$ are continuous on $X$.
+\end{theorem}
+\subsubsection{Continuity of Euclidean Vector Valued Functions}
+Let $f_1:X\to\R,\cdots f_k:X\to\R$ be real valued functions and let $\bm{f}:X\to\R^k$ be defined as \[\bm{f}(x)=\left(f_1(x),\cdots,f_k(x)\right)\] for $x\in X$.
+\begin{theorem}
+$\bm{f}$ is continuous \emph{iff} each of $f_1,\cdots,f_k$ is continuous.
+\end{theorem}
+\begin{theorem}
+If $\bm{f}:X\to\R^k$ and $\bm{g}:X\to\R^k$ are continuous, then $\bm{f}+\bm{g}$ and $\bm{f}\cdot \bm{g}$ are continuous.
+\end{theorem}
+\section{Continuity and Compactness}
+\subsubsection{Generic Functions on Compact Domain}
+\begin{theorem}
+Let $f:X\to Y$ be a continuous map where $X$ is compact. Then its image $f(X)$ is compact.
+\end{theorem}
+\begin{theorem}
+Let $f:X\to Y$, be a continuous bijection where $X$ is compact. Then the inverse map $f^{-1}\left(f(x)\right)=x$ for $x\in X$ is a continuous mapping of $Y$ onto $X$.
+\end{theorem}
+\subsubsection{Euclidean Vector Valued Functions on Compact Domain}
+\begin{definition}[Bounded Function]
+A function $\mathbf{f}:E\to \R^k$ is \tb{bounded} \emph{iff} the length of its image is bounded, i.e. $\exists M>0$, such that $\forall x\in E, |\mathbf{f}(x)|\leq M$.
+\end{definition}
+\begin{theorem}
+Let $\mathbf{f}:X\to \R^k$ be a continuous map where $X$ is compact. Then (a) its image $f(X)$ is closed and bounded and (b) $\bm{f}$ is bounded.
+\end{theorem}
+\subsubsection{Real Valued Functions on Compact Domain}
+\begin{theorem}
+Let $f:X\to\R$ be a continuous map where $X$ is compact. Then there exists $p,q\in X$ at which the function attains its maximum and minimum values, respectively. In other words, $\exists p,q\in X$ such that
+\begin{align*}
+f(p)=\sup_{x\in X}f(x) && f(q)=\inf_{x\in X}f(x).
+\end{align*}
+\end{theorem}
+\subsubsection{Uniform Continuity and Compactness}
+\begin{definition}[Uniform Continuity]
+A function $f:X\to Y$ is \tb{uniformly continuous} on $X$ \emph{iff}
+\[
+\forall\epsilon>0.\:\exists\delta>0.\:\forall p,q\in X.\:d_X(p,q)<\delta\implies d_Y(f(p),f(q))<\epsilon
+\]
+\end{definition}
+\begin{insight}
+There's a mandate on how far your neighbours can relocate from you.
+\end{insight}
+\begin{remark}
+The difference between functions that are \tb{continuous on $X$} and \tb{uniformly continuous on $X$} is that, for continuous case, the choice of $\delta$ might depend on each point and each $\epsilon$. For uniform continuous case, for every $\epsilon$, there is a $\delta$ that works for every point.
+\end{remark}
+\begin{theorem}
+If $X$ is compact, then every \tb{continuous} map $f:X\to Y$ is also \tb{uniformly continuous}.
+\end{theorem}
+
+\subsubsection{Lipschitz Continuity}
+\begin{definition}[Lipschitz Continuity]
+A function $f:X\to Y$ is \tb{Lipschitz continuous} on $X$ \emph{iff}
+\[
+\exists K>0.\:\forall p,q\in X.\: d_Y(f(p),f(q))\le K\cdot d_X(p,q)
+\]
+where $K\in\R$ is known as the \tb{Lipschitz constant}.
+\end{definition}
+\begin{remark}
+Lipschitz continuous functions have \emph{bounded derivative} (more accurately, bounded difference quotients: the slope of any line connecting two points on the graph is bounded by the Lipschitz constant).
+\end{remark}
+\begin{theorem}
+Let $f:[a,b]\to\R$ be continuous on $[a,b]$, differentiable in $(a,b)$. If $f'$ is bounded, then $f$ is Lipschitz continuous.
+\end{theorem}
+\begin{theorem}
+Every Lipschitz continuous function is also uniformly continuous.
+\end{theorem}
+\begin{remark}
+The converse is not true. The function $f:[0,1]\to\R,\: f(x)=\sqrt{x}$ is uniformly continuous, but is not Lipschitz continuous (unbounded derivative near $0$).
+\end{remark}
+\begin{insight}
+Having steeper and steeper derivative needs not to be an issue for uniform continuity, but it kills Lipschitz continuity for sure.
+\end{insight}
+
+\section{Continuity and Connectedness}
+\begin{theorem}
+Let $f:X\to Y$ be a continuous map. If $E\subset X$ is connected, its image $f(E)$ is connected.
+\end{theorem}
+\begin{theorem}[Intermediate Value Theorem]
+Let $f:[a,b]\to\R$ be a continuous function. Then $f$ attains all intermediate values between $f(a)$ and $f(b)$. Let $f(a)<f(b)$. $\forall c, f(a)<c<f(b)\implies\exists x\in(a,b), f(x)=c$.
+\end{theorem}
+\begin{remark}
+Attaining all intermediate values doesn't imply that the function is continuous in $[a,b]$.
+\end{remark}
+\begin{corollary}[Bolzano's theorem]
+If a continuous function has values of opposite sign inside an interval, then it has a root in that interval.
+\end{corollary}
+\begin{theorem}[Fixed Point Theorem]
+Let $f:[a,b]\to [a,b]$ be a continuous function. Then $\exists x\in [a,b]$ such that $f(x)=x$.
+\end{theorem}
+
+\section{Discontinuities}
+\begin{definition}
+If $f:X\to Y$ is not continuous at some $x\in X$, then $f$ is \tb{discontinuous} at $x$.
+\end{definition}
+\noindent The following definitions and properties are applicable for functions that are defined on an interval $(a,b)\in\R$ or a segment $[a,b]\in\R$.
+\begin{definition}[Left-hand limit] Let $f:(a,b)\to Y$. For a point $x\in(a,b]$, let $\{t_n\}$ be a sequence defined in $(a,x)$ such that $\lim\limits_{n\to\infty} t_n=x\implies\lim\limits_{n\to\infty}f(t_n)=q$. Then $f(x-)=q$.
+\end{definition}
+\begin{remark}
+Left-hand limit is well defined at the \tb{right} endpoint of the interval $b$ even when the function is not defined there.
+\end{remark}
+\begin{definition}[Right-hand limit] Let $f:(a,b)\to Y$. For a point $x\in[a,b)$, let $\{t_n\}$ be a sequence defined in $(x,b)$ such that $\lim\limits_{n\to\infty} t_n=x\implies\lim\limits_{n\to\infty}f(t_n)=q$. Then $f(x+)=q$.
+\end{definition}
+\begin{remark}
+Right-hand limit is well defined at the \tb{left} endpoint of the interval $b$ even when the function is not defined there.
+\end{remark}
+\begin{remark}
+At any point $x\in(a,b)$, $\lim\limits_{t\to x}f(t)$ exists \emph{iff} $f(x-)=\lim\limits_{t\to x}f(t)=f(x+).$
+\end{remark}
+\begin{definition}[Discontinuity of First Kind] If $f:(a,b)\to Y$ is discontinuous at $x\in(a,b)$ but $f(x+)$ and $f(x-)$ exist, then $f$ is said to have \tb{discontinuity of first kind} or \tb{simple discontinuity} at $x$.
+\end{definition}
+\begin{definition}[Discontinuity of Second Kind] If $f:(a,b)\to Y$ is discontinuous at $x\in(a,b)$ but it's not simple discontinuity, it is said to have \tb{discontinuity of second kind} at $x$.
+\end{definition}
+\begin{remark} Discontinuity of first kind can happen in two days
+\begin{enumerate}
+\item $f(x+)\neq f(x-)$
+\item $f(x+)=f(x-)\neq \lim\limits_{t\to x}f(t)$
+\end{enumerate}
+\end{remark}
+\begin{definition} If $f(x-)=f(x)$ we say that $f$ is \tb{continuous from the left} at $x$.
+\end{definition}
+\begin{definition} If $f(x+)=f(x)$ we say that $f$ is \tb{continuous from the right} at $x$.
+\end{definition}
+\noindent The following sections are applicable for real valued functions ($f:X\to\R$)
+
+\section{Monotonic Functions}
+\begin{definition}[Monotonically Increasing] A function $f:(a,b)\to\R$ is \tb{monotonically increasing} on $(a,b)$ if
+\[
+a<x<y<b\implies f(x)\leq f(y).
+\]
+\end{definition}
+\begin{remark} \tb{Monotonically decreasing} functions are similarly defined when
+\[
+a<x<y<b\implies f(x)\geq f(y).
+\]
+\end{remark}
+\begin{theorem}
+Let $f:(a,b)\to\R$ be monotonically increasing on $(a,b)$. Then $\forall x\in(a,b)$, $f(x+)$ and $f(x-)$ exist and
+\[
+\sup_{a<t<x}f(t)=f(x-)\leq f(x)\leq f(x+)=\inf_{x<t<b}f(t).
+\]
+Also, $a<x<y<b\implies f(x+)\leq f(y-)$.
+\end{theorem}
+\begin{remark}
+Analogous results follow for monotonically decreasing functions.
+\end{remark}
+\begin{remark}
+Monotonic functions don't have discontinuities of second kind.
+\end{remark}
+\begin{theorem}
+Let $f:(a,b)\to\R$ is monotonic on $(a,b)$. The set of points in $(a,b)$ at which $f$ is discontinuous is \emph{at most countable}.
+\end{theorem}
+\section{Infinite Limits and Limits at Infinity}
+\begin{definition}
+The neighbourhood of $x$ is defined to be any segment $(x-\delta,x+\delta)$.
+\end{definition}
+\begin{definition} For any $c\in\R$, the set $(c,+\infty):=\{x\mid x>c\}$ is the \tb{neighbourhood of $+\infty$} and the set $(-\infty,c):=\{x\mid x<c\}$ is the \tb{neighbourhood of $-\infty$}.
+\end{definition}
+\begin{definition} Let $E\subset \R$. For $f:E\to \R\cup\{+\infty,-\infty\}$, $\lim\limits_{x\to p}f(x)=q$ \emph{iff}
+\[
+\forall N_Y(q).\:\exists N_X(p).\:x\in N_X^*(p)\cap E\implies f(x)\in N_Y(q)
+\]
+where $N_X(p)\cap E\neq\emptyset$.
+\end{definition}
+\begin{theorem}
+Let $f$ and $g$ be defined on $E\subset\R$ and $\lim\limits_{t\to x}f(t)=A$ and $\lim\limits_{t\to x}g(t)=B$.
+\begin{enumerate}
+\item $f(t)\to A'\implies A'=A$
+\item $(f+g)(t)\to A+B$
+\item $(fg)(t)\to AB$
+\item $(f/g)(t)\to A/B$.
+\end{enumerate}
+\end{theorem}
+
+\chapter{Differentiation}
+\chapter{The Riemann-Stieltjes Integral}
+\chapter{Sequences and Series of Functions}
+Let $(f_n)_{n=1}^\infty$ be a sequence of functions $f_n:E\to\R$. If $\forall x\in E$, each of the sequence of function-values, $(f_n(x))_{n=1}^\infty$, converges, then we define the \emph{limit-function}, $f$ as \[f(x)=\lim_{n\to\infty} f_n(x), \forall x\in E.\]
+We say that the sequence $(f_n)_{n=1}^\infty$ \emph{converges point-wise} to $f$ on $E$.
+\begin{definition}[Point-wise Convergence]
+A sequence of functions, $(f_n(x))_{n=1}^\infty$, converges \emph{point-wise} to a function $f$ on $E$ \emph{iff} $\forall\epsilon>0$ and $\forall x\in E$, $\exists N_{(x,\epsilon)}$, such that  
+\[n\ge N_{(x,\epsilon)}\implies |f_n(x)-f(x)|\le\epsilon.\]
+\end{definition}
+
+\section{Uniform Convergence}
+\begin{definition}[Uniform Convergence]
+A sequence of functions, $(f_n(x))_{n=1}^\infty$, converges \emph{uniformly} to a function $f$ on $E$ \emph{iff} $\forall\epsilon>0$, $\exists N_\epsilon$, such that $\forall x\in E$ 
+\[n\ge N_\epsilon\implies |f_n(x)-f(x)|\le\epsilon.\]
+\end{definition}
+
+\begin{theorem}[Cauchy Criterion of Uniform Convergence]
+A sequence of functions, $(f_n(x))_{n=1}^\infty$, converges \emph{uniformly} $E$ \emph{iff} $\forall\epsilon>0$, $\exists N_\epsilon$, such that $\forall x\in E$
+\[n\ge N_\epsilon,m\ge N_\epsilon\implies |f_n(x)-f_m(x)|\le\epsilon.\]
+\end{theorem}
+
+\begin{theorem}
+Let $\lim_{n\to\infty}f_n(x)=f(x)$ for all $x\in E$. Let $M_n=\sup_{x\in E}|f_n(x)-f(x)|$. Then $f_n\to f$ uniformly on $E$ \emph{iff} $M_n\to 0$ as $n\to\infty$.
+\end{theorem}
+\end{document}
