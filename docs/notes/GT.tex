@@ -1,0 +1,86 @@
+\documentclass{report}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{hyperref}
+
+\hypersetup{
+	colorlinks=true,
+    linkcolor=blue
+}
+
+\theoremstyle{definition}\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\theoremstyle{remark}\newtheorem{remark}{Remark}
+\newtheorem{theorem}{Theorem}
+\theoremstyle{remark}\newtheorem{example}{Example}
+
+\begin{document}
+
+\title{Notes on Group Theory}
+\author{Prof. Richard E. Borcherds \\ University of California, Berkeley}
+
+\maketitle
+\tableofcontents
+
+\chapter{Introduction}
+\begin{definition}[Symmetry]
+Symmetry means a bijection from some mathematical object to itself which preserves the structure of the object.
+\end{definition}
+\chapter{Cayley's Theorem}
+\chapter{Homomorphism}
+\section{Definitions}
+\begin{definition}[Homomorphism]
+A homomorphism from one group $G$ to another group $H$ is a map $f:G\to H$ that preserves the group multiplication. This means, $\forall a,b\in G, f(a\cdot b)=f(a)\cdot f(b)$.
+\begin{remark}
+A consequence of homomorphism is that it also preserves the identity and inverse elements.
+\begin{enumerate}
+\item $f(1_G)=1_H$
+\item $f(a^{-1})=(f(a))^{-1}$
+\end{enumerate}
+Therefore a homomorphism can be thought of a function that preserves the group structure.
+\end{remark}
+\end{definition}
+\begin{definition}[Isomorphism]
+An isomorphism is a homomorphism which is also a bijection. Therefore, there exists an inverse map $f^{-1}:H\to G$.
+\end{definition}
+\begin{remark}
+An isomorphism between two groups means that they are in some sense the same group, except that the elements has been relabelled.
+\end{remark}
+\begin{definition}[Automorphism]
+An automorphism is a isomorphism of a group to itself, i.e. $f:G\to G$.
+\end{definition}
+\begin{remark}
+An automorphism of a group can be thought of the symmetries of the group. Recall that symmetry means a bijection from some mathematical object to itself which preserves the structure of the object. In particular, the set of all automorphisms of a group is itself a group because it is the symmetry of something.
+\end{remark}
+\begin{definition}[Kernel]
+A kernel is the set of elements on a group which maps to the identity element under a map, i.e. $\text{Ker}(G)\coloneqq\{a\in G \mid f(a)=1_H\}$.
+\end{definition}
+\section{Examples}
+\begin{example}[Exponential map] 
+\[\exp(x)\coloneqq 1+x+\frac{x^2}{2!}+\cdots\] 
+This has the property that \[\exp(x+y)=\exp(x)\cdot\exp(y).\] On the left side, we have the group operation of $\mathbb{R}(+)$ and on the right, we have the group operation of $\mathbb{R}^*(\cdot)$, where $\mathbb{R}^*\coloneqq\mathbb{R}\setminus\{0\}$.
+
+It is not a bijection because it is not onto. However, it is an isomorphism from $\mathbb{R}(+)$ to $\mathbb{R}_{>0}(\cdot)$. The inverse map is $\log$.
+\end{example}
+\begin{example}[Determinant of a matrix]
+\[\det\begin{pmatrix}
+a & b\\
+c & d
+\end{pmatrix}=ad-bc\]
+This has the property that \[\det(AB)=\det(A)\det(B).\]
+This means that the $\det$ is a homomorphism from the generalized linear group of size $n(\geq 1)$ over reals, $\text{GL}_n(\mathbb{R})$, to $\mathbb{R}^*(\cdot)$. Recall that $\text{GL}_n(\mathbb{R})$ is the set of \textbf{invertible} linear maps from $\mathbb{R}^n\to\mathbb{R}^n$.
+
+The \textbf{kernel} in this case is $\text{SL}_n(\mathbb{R})$ (special linear group) which is defined as the set of matrices with $\det$ 1.
+\end{example}
+\begin{remark}
+In linear algebra, ``special'' often means that the $\det$ is 1. Therefore, the special orthogonal group of matrices means the group of orthogonal matrices which has $\det$ 1. (???)
+\end{remark}
+
+\begin{example}
+Recall that $\mathbb{Z}/4\mathbb{Z}$ is the group of integers mod 4. The elements are $\{0,1,2,3\}$ and the group operation is given by $+$. Similarly, $\mathbb{Z}/5\mathbb{Z}^*$ is the nonzero group of integers mod 5, where the elements are $\{1,2,3,4\}$ and the group operation is $\cdot$. Then a map $f:\mathbb{Z}/4\mathbb{Z}\to \mathbb{Z}/5\mathbb{Z}^*$ can be defined such a way that $f(a)=2^a$.
+\end{example}
+\end{document}
