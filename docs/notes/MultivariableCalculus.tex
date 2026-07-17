@@ -1,0 +1,79 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[%  
+    colorlinks=true,
+    pdfborder={0 0 0},
+    linkcolor=red
+]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+\newtheorem{remark}{Remark}
+
+\begin{document}
+
+\title{Notes on Multivariable Calculus}
+\author{Soumyajit De}
+
+\maketitle
+%\tableofcontents
+%\newpage
+\section{Geometric Intuition and Motivation}
+What are we dealing with:
+\begin{itemize}
+\item $f(x,y)=x^2+y$, $f:\mathbb{R}^2\rightarrow \mathbb{R}$ [functional]
+\item $f(x,y)=\begin{bmatrix} 
+3x \\
+2y 
+\end{bmatrix}$, $f:\mathbb{R}^2\rightarrow \mathbb{R}^2$ [vector-valued functions]
+\item $f(x,y)=\begin{bmatrix} 
+x^2 \\
+y^2 \\
+2x-y 
+\end{bmatrix}$, $f:\mathbb{R}^2\rightarrow \mathbb{R}^3$ [parametric surfaces]
+\end{itemize}
+Different ways to visualize:
+\begin{itemize}
+\item functionals can be represented as graphs with one of the axes (typically the $z$-axis) serving for the function value itself, or contour plots
+\item vector-valued functions $f:\mathbb{R}^2\rightarrow \mathbb{R}^2$ can be visualized as a vector field.
+\item vector-valued functions $f:\mathbb{R}^2\rightarrow \mathbb{R}^2$ can also be visualized by watching the entire input space in $\mathbb{R}^2$ move to the output space in $\mathbb{R}^2$.
+\item parametric surfaces for visualizing a mapping of a plane (say, $\mathbb{R}^2$) move into a surface embedded in $\mathbb{R}^3$.
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=.3\linewidth]{calc3/001.png}\quad\includegraphics[width=.3\linewidth]{calc3/002.png}\quad\includegraphics[width=.3\linewidth]{calc3/003.png}
+\caption{Slicing Graphs}
+\label{figure:slicing}
+\end{figure}
+
+\subsubsection{Visualizing Functionals: Graphs and Contour plots}
+For 3-dimensional graphs, slicing the graph for a fixed value of the input can give us some insight. For example, in the graph of $f(x,y)=\cos(x)\sin(y)$ (see fig \ref{figure:slicing}), we can set $x=0$ or $y=\frac{\pi}{2}$ and examine the behavior.
+
+If we slice the graph at $z$ for some constant value. That would give rise to the contour plot of the graph (see fig \ref{figure:contour}).
+
+\begin{figure}
+\centering
+\includegraphics[width=.3\linewidth]{calc3/005.png}\quad\includegraphics[width=.3\linewidth]{calc3/006.png}\quad\includegraphics[width=.3\linewidth]{calc3/007.png}
+\caption{Contour Plots}
+\label{figure:contour}
+\end{figure}
+
+\subsubsection{Visualizing parametric surfaces}
+Parameter here is a fancy name for the input, e.g.
+$f(t)=\begin{bmatrix} 
+t\cos(t) \\
+t\sin(t) 
+\end{bmatrix}$.\\
+Best way to visualizing these objects is to look at just the output space of the function (see fig \ref{figure:parametric_curve}). One thing to keep in mind is that, there can be multiple functions which look the same way in the output space, if we don`t keep track of the
+\begin{figure}
+\centering
+\includegraphics[width=.7\linewidth]{calc3/008.png}
+\caption{Parametric surface}
+\label{figure:parametric_curve}
+\end{figure}
+\end{document}
