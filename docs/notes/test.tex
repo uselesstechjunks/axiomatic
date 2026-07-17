@@ -1,0 +1,28 @@
+\documentclass[]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{graphicx}
+
+\begin{document}
+\title{Chernoff's Bound \& Hoeffding's Inequality}
+\author{Soumyajit De}
+\maketitle
+\section{Why Care About Probability Bounds?}
+Let's say that we have a random variable $X$ with an unknown distribution function $F$, i.e. $X\sim F$, which, typically, is the case. A common task is to estimate the true mean, $\mu=\mathbb{E}[X]$, assuming that it exists, from a few independent samples from the distribution, $X_1,\cdots,X_n\sim F$. We use the sample mean statistic, $\overline{X}_n=\frac{1}{n}\sum_{i=1}^n X_i$ as an estimator for this. This is reasonable, since the Weak-Law-of-Large-Numbers (WLLN) says that this quantity converges in-probability to the true-mean $\mu$ ($\overline{X}_n\overset{P}{\to} \mu$). Simply put, no matter how small a $t>0$ you choose, the probability of absolute difference between these two quantities being larger than that $t$ vanishing asymptotically, i.e. $\mathbb{P}(|\overline{X}_n-\mu|> t)\to 0$ as $n\to\infty$.
+\\ \\ 
+But in practice, when we have a finite sample $(X_i)_{i=1}^n$, this statement alone is not really useful if we want to quantify how far off this is from $\mu$. How quickly does it converge? How many samples would we need if we want the expected error in our estimate to be within a reasonable bound? 
+\\ \\ 
+Intuitively, these properties must depends on how concentrated the probability measure is around the mean. The more concentrated it is, the lesser number of samples we'd need to get a reasonable estimate. Ideally, we want the tails of the original distribution to be as thin as possible, which essentially means that the probability that the difference between $\mu$ and $X$ is large is bounded by a small quantity, i.e. $\mathbb{P}(|X-\mu|>t)\le\epsilon(t)$. Then, using these bounds, we can bound the error in our mean estimate $\overline{X}_n$ by some small quantity as well.
+\\ \\
+We'd see that the more information we have about the random variables and their distribution $F$, the tighter our bounds will be.
+\section{Key idea: Use the information given}
+\subsection{Only the mean is known}
+\subsection{Both the mean and the variance are known}
+
+\begin{center}
+\includegraphics[scale=0.4]{notes/001.png}
+\end{center}
+
+\subsection{Variable is bounded}
+\end{document}
