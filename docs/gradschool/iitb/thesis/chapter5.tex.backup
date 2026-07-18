@@ -1,0 +1,8 @@
+\chapter{Conclusion and remarks}
+\label{chapter:remarks}
+
+We have discussed in detail the problem of diverse feature selection in linear regression setting. We have established a theoretical result which shows that in a greedy local search (GLS) framework proposed by \citealp{NIPS2012_4689}, using a linear time local search variant based on \citealp{Buchbinder:2012:TLT:2417500.2417835} instead of the rather expensive variant similar to \citealp{Feige:2011:MNS:2079073.2079078}, we can still reach provable optimality guarantee. Unlike the optimality guarantee in \citealp{NIPS2012_4689}, our optimality guarantee does not depend on external parameters to the algorithm.
+
+Also, the present work allows to increase scalability of the entire GLS framework if we use a parallel version of the linear time local search algorithm proposed by \citealp{PanJGBJ14}. This was not possible before due to the sequential nature of the algorithm used in the original paper by \citealp{NIPS2012_4689}. This parallel version selects in each step the exact same element as the one proposed in \citealp{Buchbinder:2012:TLT:2417500.2417835} and therefore the optimality guarantee proposed in the present work holds readily in that case. It would be interesting to see how the usage of the parallel version scales up the size of the problems the framework can handle.
+
+However, we have also noticed that the regularizer being non-monotone is a specific case which is hard to observe in many standard datasets. In many cases a standard Forward Regression algorithm 

@@ -1,0 +1,117 @@
+\chapter{Experiments and results}
+\label{chapter:results}
+We describe our experimental setups and results in this chapter.
+
+\section{Experimental setups}
+\label{section:setup}
+We ran the experiment on several standard data sets including 
+\begin{itemize}
+ \item \texttt{housing} data set
+ \begin{itemize}
+  \item (\texttt{https://archive.ics.uci.edu/ml/datasets/Housing})
+  \item comprises of $13$ attributes and $506$ instances
+ \end{itemize}
+  \item \texttt{wine} data set
+ \begin{itemize}
+  \item (\texttt{https://archive.ics.uci.edu/ml/datasets/Wine+Quality})
+  \item comprises of $11$ attributes and $4898$ instances
+ \end{itemize}
+ \item \texttt{indoor} data set
+ \begin{itemize}
+  \item (\texttt{https://archive.ics.uci.edu/ml/datasets/UJIIndoorLoc})
+  \item comprises of $528$ attributes and $21048$ instances
+ \end{itemize}
+ \item \texttt{blog} data set
+ \begin{itemize}
+  \item (\texttt{https://archive.ics.uci.edu/ml/datasets/BlogFeedback})
+  \item comprises of $280$ attributes and $60021$ instances
+ \end{itemize}
+ \item \texttt{mnist} data set that is used in \citealp{NIPS2012_4689} in the same fashion in order to be able to compare our results with theirs
+ \begin{itemize}
+  \item (\texttt{http://yann.lecun.com/exdb/mnist/})
+  \item $1000\sim 10000$ randomly selected instances out of $60000$ with $784$ features
+ \end{itemize}
+\end{itemize}
+
+\noindent Our data (both regressors and regressand) are column-wise normalized to have unit $l_2$-norm. We also performed an experiment on a synthetic data set with just the local search algorithms used in \citealp{NIPS2012_4689} and our proposed algorithm for the approximately submodular objective function $g(S)$. The synthetic data set was obtained by randomly generating a matrix with entries i.i.d. samples from $U(0,1)$. We randomly added some zero columns into this data set in order to make the functions behave like non-monotone in the input set. This matrix was then column-wise normalized as well. The experiments were performed on a Lenovo Thinkpad T430 Intel\textsuperscript{\circledR} Core\texttrademark{} i5-3230M CPU $@$ 2.60GHz with 8GB DDR3 $@$ 1600MHz running Fedora Linux 3.17.6-300.fc21.x86\_64).
+\subsection{Results}
+\label{subsection:results}
+As we can see from figure \ref{fig:syn}, the linear time LS algorithm for $g(S)$ shows similar performance except for a few cases with the LS algorithm used in \citealp{NIPS2012_4689} on the synthetic data set in terms of the size of the set it returns and in terms of the function value on the output set, $g(\hat{S})$ but takes significantly less time as the size of the input increases. In the figure \ref{fig:mnist}, we see the whole feature selection framework in action on \texttt{mnist} data set with $10000$ instances selected uniformly randomly from total $60000$ instances with smoothed differential entropy regularizer with $\nu=0.0001$, $\delta=0.1$. We have varied the number of target features from $10$ to $100$. We then fit a linear model using the selected features and measured test-statistic on the test data. Here we can observe that the $R^2$ statistic $\ge 0.8$ even with just $10$ features. This performance is similar to the one proposed by \citealp{NIPS2012_4689}.
+
+\begin{figure}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.0\linewidth]{images/figure_4.png}
+%   \caption{1a}
+  \label{fig:opsize}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.0\linewidth]{images/figure_5.png}
+%   \caption{1b}
+  \label{fig:gs}
+\end{subfigure}
+\begin{center}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.0\linewidth]{images/figure_6.png}
+%   \caption{1b}
+  \label{fig:gs}
+\end{subfigure}
+\end{center}
+\caption{Comparison of performance of LS algorithms on $g(S)$ with smoothed differential entropy regularizer with $\nu=0.0001$, $\delta=0.1$. (a) This shows the size of the output set that the LS algorithms return (b) Plot of $g(\hat{S})$ where $\hat{S}$ is the output of the LS algorithms (c) Time taken by the LS algorithms}
+\label{fig:syn}
+\end{figure}
+
+\begin{figure}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.0\linewidth]{images/figure_7.png}
+%   \caption{1a}
+  \label{fig:sfig1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.0\linewidth]{images/figure_8.png}
+%   \caption{1b}
+  \label{fig:sfig2}
+\end{subfigure}
+\caption{GLS algorithm with linear LS with smoothed differential entropy regularizer with $\nu=0.0001$, $\delta=0.1$. (a) This shows $R^2$-statistic on test data (b) This shows the sum-squared error on test data}
+\label{fig:mnist}
+\end{figure}
+
+\subsection{Tesseract - An open source library}
+As a course of development, we built an open source library under MIT license, \hyperref[https://github.com/lambday/tesseract] Tesseract, which is hosted in Github (\texttt{https://github.com/lambday/tesseract}). The implementation is done in C++ for speed and efficient memory management. We have used Eigen3 (\texttt{http://eigen.tuxfamily.org/}), another open source library, for the linear algebra operations in the algorithms. The features of this library are 
+
+\begin{itemize}
+ \item showcasing the different algorithms discussed in this report
+ \item a unit testing suite
+ \item an integration testing suite
+ \item memcheck suite for all the unit/integration tests
+ \item different measures of performance on test-data including
+ \begin{itemize}
+  \item sum of squared errors
+  \item Pearson's correlation
+  \item squared multiple correlation measure or $R^2$ statistic
+ \end{itemize}
+ \item doxygen generated documentation and reference manual
+\end{itemize}
+
+\noindent Since for the algorithms we implemented here, all the computations are performed on the covariance matrix of the normalized regressors, $X\in \mathbb{R}^{N\times n}$, and regressand, $Z\in \mathbb{R}^N$, we compute and store the the covariance matrix $C\in R^{(n+1)\times (n+1)}$ and discard the data. Since usually $n\ll N$, This reduces the overall memory usage of the library and also makes it virtually independent on the number of examples used, $N$. In figure \ref{fig:memuse} we show the memory usage by the library running on \texttt{mnist} data set for different number of examples. As seen from this plots, the memory usage is constant after the initial burst where we compute the covariance matrix and is practically independent on the number of examples.
+
+\begin{figure}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.0\linewidth]{images/mem-10000-num-examples-graph.png}
+%   \caption{1a}
+  \label{fig:sfig1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.0\linewidth]{images/mem-50000-num-examples-graph.png}
+%   \caption{1b}
+  \label{fig:sfig2}
+\end{subfigure}
+\caption{Memory usage by the Tesseract on \texttt{mnist} data set (784 features) with target features $20$ (a) $10,000$ examples (b) $50,000$ examples}
+\label{fig:memuse}
+\end{figure}

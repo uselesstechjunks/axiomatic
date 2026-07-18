@@ -1,0 +1,89 @@
+\documentclass[a4paper,12pt]{report}
+% \usepackage[utf8]{inputenc}
+\usepackage{amsmath, amsfonts, amssymb, amsthm}
+% \usepackage[lined,boxed,commentsnumbered]{algorithm2e}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage[mathscr]{euscript}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{epsfig}
+% \usepackage{subfig}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage[english]{babel}
+\usepackage[left=1.5in, right=1.0in, top=1.0in, bottom=1.0in]{geometry}
+\usepackage{framed,xcolor}
+\usepackage{verbatim}
+\usepackage{fixltx2e}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=gray]{hyperref}
+% \usepackage[colorlinks=true,linkcolor=blue,citecolor=gray,bookmarksnumbered,backref=page,linktocpage=true]{hyperref}
+% \usepackage[font=small,format=plain,labelfont=bf,up,textfont=it,up]{caption}
+% \usepackage[nottoc]{tocbibind}
+\usepackage[langfont=roman,funcfont=italic]{complexity}
+\usepackage{listings}
+\usepackage[round,authoryear,numbers]{natbib}
+
+
+\renewcommand{\bibname}{References}
+\definecolor{shadecolor}{gray}{0.95}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}{Definition}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{claim}{Claim}[section]
+
+\begin{document}
+
+% Title Page
+\input{titlepage.tex}
+
+\pagenumbering{gobble}
+\vspace*{4cm}
+\begin{center}
+{
+  \fontfamily{calligra}\selectfont 
+  \begin{large}  
+  To My Mother, My Sister and Sayantani
+  \end{large}
+}
+\end{center}
+
+\newpage
+
+\renewcommand{\abstractname}{Acknowledgments}
+\begin{abstract}
+ I would like to express my sincere gratitude to my supervisor, Prof. Ganesh Ramakrishnan, who introduced me to this domain. I can't thank him enough for his valuable time, suggestions, help and constructive criticism during the entire work. I would also like give special thanks to my fellow M.Tech student, Pankaj Singh, for having long discussions with me on the topic which helped me understand the material better. Furthermore I would also like to acknowledge with much appreciation the staff of CSE department for all their help in the official procedure.
+ \\
+ \\
+ \noindent Special thanks to all my friends in and off campus who helped me in numerous occasions I can't even begin to name.
+ \\
+ \\
+ \noindent Finally, this work would not have been possible without the constant support and enthusiasm from my mother, my sister and Sayantani. Thanks for being there for me always.
+\end{abstract}
+
+\renewcommand{\abstractname}{Abstract}
+\begin{abstract}
+ Submodular functions (see \citealp{Lovasz}, \citealp{nara}) form an interesting field of research due to their mathematical elegance and wide range of applicability in numerous areas, including Machine Learning, Economics, Natural Language Processing, to name a few. Submodular functions' connections with both convexity and concavity have made them ideal choice for candidate set functions in discrete optimization problems. In many practical scenarios, however, exact submodularity appears to be a strict condition to observe. Therefore, in \citealp{DasDK11}, the notion of \emph{approximate submodularity} was introduced in the context of feature selection task for linear regression. In order to promote diversity in the selected features for many practical reasons, a number of submodular (monotone or non-monotone) regularizers were used along with an approximate submodular objective function in the feature selection task for linear regression problems in \citealp{NIPS2012_4689}. In that work, for the non-monotone case, a rather expensive local search based algorithm based on \citealp{Feige:2011:MNS:2079073.2079078} is used in addition to a standard forward selection algorithm to show that it has a provable optimality guarantee for such objective function. In the present work, we show that using a linear-time local search similar to \citealp{Buchbinder:2012:TLT:2417500.2417835}, we can also achieve an optimality guarantee for the such objective function and therefore reduce the complexity of the whole algorithm for the same task without compromising much regarding the performance.
+\end{abstract}
+
+\pagenumbering{roman}
+\tableofcontents
+\listoffigures
+
+\clearpage
+\pagenumbering{arabic}
+\pagestyle{headings}
+
+\input{chapter1.tex}
+\input{chapter2.tex}
+\input{chapter3.tex}
+\input{chapter4.tex}
+\input{chapter5.tex}
+
+\bibliographystyle{plainnat}
+\bibliography{report}
+
+\end{document}

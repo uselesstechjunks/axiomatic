@@ -1,0 +1,189 @@
+\chapter{Background and motivation}
+\label{chapter:background}
+In this chapter, we start with a formal introduction to submodular functions in section \ref{section:submodular}. In subsection \ref{subsection:approximate}, we discuss the notion of submodularity ratio and approximate submodular functions. In the subsequent subsection \ref{subsection:approxmax}, an algorithm and corresponding optimality result is reviewed for approximate submodular functions. Next, in section \ref{section:featsel}, we discuss the problem of feature selection in linear regression setup. In general we review that this is a hard problem but using squared multiple correlation as the objective function (in subsection \ref{subsection:rsq}) we can yet achieve some provable optimality guarantee. We also review some of the results from \citealp{Das:2008:ASS:1374376.1374384} which establishes the robustness of this objective function to small perturbation in the training data. Finally in section \ref{section:diversity}, we discuss the importance of diversity in feature selection and why non-monotone submodular regularizers are strong candidates for such scenario. We also review the results from on optimality presented in \citealp{NIPS2012_4689} for approximately submodular objective functions with non-monotone diversity promoting regularizers.
+
+\section{Submodular functions}
+\label{section:submodular}
+Submodular functions are \emph{set functions} following certain properties. A \emph{set function} is defined on a set $X$ and it maps all possible $2^{|X|}$ subsets (usually written as $2^X$ for convenience) to a real value where the usual notion of $|.|$ denotes the cardinality of a set. There are a few equivalent definitions of submodularity. In the following we present the fundamental definition of submodularity (definition \ref{def:first}) and then in proposition \ref{def:second} an alternative definition is presented which is more frequently used in the proofs of our relevant results.
+
+\begin{definition}
+\label{def:first}
+ A set function $f:2^X\rightarrow \mathbb{R}$ is submodular if and only if for all $A$, $B\subseteq X$, \[f(A)+f(B)\geq f(A\cup B)+f(A\cap B)\]
+\end{definition}
+
+\noindent In almost all the cases, $f(\emptyset)$ is assumed to be $0$. Therefore, for two disjoint sets $A,B\subseteq X$ the following proposition holds.
+
+\begin{proposition}
+ For all $A$, $B\subseteq X$ and $A\cap B = \emptyset$, $f(A)+f(B)\geq f(A\cup B)$
+\end{proposition}
+
+\noindent Another interesting definition comes from the \emph{property of diminishing returns} of submodular functions as promised by the following proposition. In \citealp{DBLP:journals/corr/abs-1111-6453} the proof of its equivalency with definition \ref{def:first} is provided. For the sake of completeness we present the proof here.
+
+\begin{proposition}
+\label{def:second}
+ A set function $f:2^X\rightarrow \mathbb{R}$ is submodular if and only if for all $A$, $B\subseteq X$ with $A \subseteq B$ and every $x \in X \backslash B$ \[f(A\cup \{x\})-f(A)\geq f(B\cup \{x\})-f(B)\]
+\end{proposition}
+
+\begin{proof}
+ First we prove the forward direction of the claim. Let's consider $A\subseteq B$ and $x\in X\setminus B$. Representing $C=A\cup\{x\}$, we have $C\cup B=B\cup \{x\}$ and $C\cap B=A$. Therefore we can write
+ \[\left(f(A\cup \{x\})-f(A)\right)-\left(f(B\cup \{x\})-f(B)\right) = f(C)+f(B)-f(C\cup B)-f(C\cap B)\ge 0\]
+ To prove the reverse direction, we assume that proposition \ref{def:second} holds. Let's consider $n$ inequalities that can be written from this proposition in the form of $f(A\cup\{c_1,\cdots,c_k\})-f(A\cup\{c_1,\cdots,c_{k-1}\})\ge f(B\cup\{c_1,\cdots,c_k\})-f(B\cup\{c_1,\cdots,c_{k-1}\})$ where $c_i\notin B$. Summing these up, for $C=\{c_1,\cdots c_n\}$ we have $f(A\cup C)-f(A)\ge f(B\cup C)-f(B)$. Finally, let's consider any $P,Q\subseteq X$. Taking $A=P\cap Q$ and $C=P\setminus Q$ and $B=Q$, we have $A\cup C=P$ and $B\cup C=P\cup Q$. Therefore $f(P)+f(Q)\ge f(P\cup Q)+f(P\cap Q)$.
+\end{proof}
+
+\noindent Throughout this report, we talk about \emph{monotone} and \emph{non-monotone} set functions. In the following we provide definitions for these.
+
+\begin{definition}
+ A set function $f:2^X\rightarrow \mathbb{R}$ is called monotone if for all $A,B\subseteq X$ with $A\subseteq B$, we have $f(A)\le f(B)$ or $f(A)\ge f(B)$.
+\end{definition}
+
+\noindent A set function is called \emph{non-monotone} if it is not \emph{monotone}.
+
+\subsection{Optimization of submodular functions}
+Since submodular functions arise mainly in discrete optimization problems, the aspect of minimization and maximization of submodular functions is one of the widely explored areas in theoretical development. For minimization, a convex relaxation of submodular set functions (known as Lov{\'a}sz extension) allows to find exact minimal solution in polynomial time (see \citealp{DBLP:journals/corr/abs-1111-6453} for details). However finding the exact maxima of a submodular set functions has been proven to be \NP-hard. Therefore a number of approximation algorithms exists in various settings (unconstrained, constrained) with some optimality guarantee. In an well known result from \citealp{nemhauser1978analysis} it has been shown that for monotone submodular set functions under cardinality constraints a greedy forward selection algorithm can achieve a $(1-\frac{1}{e})$ multiplicative approximation guarantee. For non-monotone case, in the unconstrained setting the best known result gives a $\frac{1}{3}$ approximation guarantee (see \citealp{Feige:2011:MNS:2079073.2079078} and \citealp{Buchbinder:2012:TLT:2417500.2417835}) for non-negative submodular functions. In recent work by \citealp{Buchbinder:2014:SMC:2634074.2634180}, an approximation algorithm exists that gives an approximation guarantee of $[\frac{1}{e}+0.004,\frac{1}{2}]$ for maximizing non-monotone submodular functions with cardinality constraints. In chapter \ref{chapter:work} we review local search based unconstrained submodular maximization algorithms.
+
+\subsection{Approximate submodular functions}
+\label{subsection:approximate}
+In many practical scenario, the set function in hand may not be exactly submodular. In \citealp{DasDK11} the notion of submodularity ratio was introduced for any non-negative set function $f:2^X\rightarrow \mathbb{R}$.
+
+\begin{definition}
+ For a set $X$ and some $k\ge 1$, the submodularity ratio $\gamma_{X,k}(f)$ is defined for any non-negative set function $f:2^X\rightarrow \mathbb{R}$ as
+ \[
+   \gamma_{X,k}(f)=\min_{L\subseteq X, S:|S|\le k, S\cap L=\emptyset}\frac{\sum_{x\in S}f(L\cup\{x\})-f(L)}{f(L\cup S)-f(L)}
+ \]
+\end{definition}
+
+\noindent The submodularity ratio intuitively denotes how close a set function is to becoming submodular. It forms a necessary and sufficient condition for submodularity.
+
+\begin{lemma}
+ Any set function $f$ is submodular if and only if $\gamma_{X,k}(f)\ge 1$
+\end{lemma}
+% \begin{proposition}
+%  Any set function $f$ is submodular if and only if $\gamma_{X,k}(f)\ge 1$
+% \end{proposition}
+% \begin{proof}
+%  To prove the forward direction, we assume that $f$ is submodular. Let's consider the set $S=\{x_1,\cdots,x_n\}$ where $n\le k$. For any $L\subseteq X$ such that $L\cap S=\emptyset$, we have, for all $i\le n$, by proposition \ref{def:second},
+%  \[f(L\cup \{x_1,\cdots,x_i\})-f(L\cup \{x_1,\cdots,x_{i-1}\})\le f(L\cup \{x_i\})-f(L)\]
+%  Summing these inequalities we get $f(L\cup S)-f(L)\le \sum_i f(L\cup\{x_i\})-f(L)$ which shows that $\gamma_{X,k}(f)\ge 1$. To prove the other way, let's assume that $\gamma_{X,k}(f)\ge 1$, which means for all $L\subseteq X$ and $S$ with $|S|\le k$ such that $L\cap S=\emptyset$, we have 
+%  \[f(L\cup S)-f(L)\le \sum_{x\in S} f(L\cup\{x\})-f(L)\]
+%  Without losing any generality, we consider the case with $|S|=2\le k$. So we have
+%  \[f(L\cup\{x_1\})-f(L) + f(L\cup\{x_2\})-f(L)\ge f(L\cup \{x_1,x_2\})-f(L)\]
+%  and therefore $f(L\cup\{x_1\})-f(L) \ge f(L\cup \{x_1,x_2\})-f(L\cup\{x_2\})$. (not yet completed)
+% \end{proof}
+
+\noindent We say that a set function $f$ is \emph{approximately submodular} if $\gamma_{X,k}(f)\rightarrow 1_-$. Proving an optimality guarantee in approximate submodular maximization is hard in general. However, for non-negative monotone approximate submodular functions defined on sets of real valued vectors, an optimality guarantee can be given in terms of its submodularity ratio. This type of functions is often very useful for feature selection problems.
+
+\subsection{Maximization of approximately submodular function}
+\label{subsection:approxmax}
+Let's consider a set of real valued vectors with cardinality $n$, $X=\{x_i\}_{i=1}^n$, where $x_i\in \mathbb{R}^N$ for some $N$. Let's assume that $f:2^X\rightarrow \mathbb{R}$ is a non-negative monotone set function with submodularity ratio $\gamma_{X,k}$. Then a simple forward selection (also known as forward regression) algorithm outputs a solution set for the optimization problem
+\[
+ \operatorname*{arg\,max}_{S:|S|\le k} f(S)
+\]
+with provable optimality guarantee. This exact same algorithm achieves an optimality guarantee of $(1-\frac{1}{e})$ for exact submodular set functions. 
+
+First we present the algorithm and then we present the theorem (based on Theorem 3.2 in \citealp{DasDK11}) showing its optimality guarantee.
+
+\begin{algorithm}
+FR algorithm
+\begin{algorithmic}[1]
+\State $S_0\gets \emptyset$
+\State $U\gets \{X_1,\cdots,X_n\}$
+\For{$i\gets 0$ to $i<k$}
+  \State $X^*_j\gets\ \operatorname*{arg\,max}_{X_j\in U\setminus S_i} f(S\cup \{X_j\})$
+  \State $S_{i+1}\gets S_i\cup \{X^*_j\}$
+  \State $U\gets U\setminus \{X^*_j\}$
+\EndFor
+\end{algorithmic}
+\Return $S_{\text{FR}}=S_k$
+\end{algorithm}
+
+\noindent The following theorem (based on Theorem 3.2 in \citealp{DasDK11}) shows the optimality guarantee. In the paper the proof is chalked out for a particular set function but it holds for generic non-negative monotone set functions defined on sets of real valued vectors as well.
+
+\begin{theorem}
+\label{thm:optimality}
+ The set $S_{\text{FR}}$ selected by forward regression algorithm has an optimality guarantee of $(1-e^{-\gamma_{S_{\text{FR}},k}})$, \textit{i.e.} $f(S_{\text{FR}})\ge (1-e^{-\gamma_{S_{\text{FR}},k}})\cdot f(\text{OPT})$ where $\text{OPT}\subseteq X$ is the optimal set of cardinality $k$.
+\end{theorem}
+
+\noindent The above result is very useful and presently best known result for subset selection with $R^2$ objective function which we discuss next.
+
+\section{Feature selection in linear regression}
+\label{section:featsel}
+Given a set of features $X$, often selecting a subset $S\subseteq X$ with $|S|\le |X|$ simplifies the learning and prediction task by reducing the problem size via removal of unnecessary or redundant features. This is a combinatorial optimization problem and in general is \NP-hard (\citealp{Amaldi:1998:AMN:292475.292496}). Although a number of filter methods exist which try to minimize a proxy error, yet no approximation guarantee can be provided while using the sum-squared error as an objective function.
+
+In linear regression setting, we're given a set of $N$ observations with regressors $X=\{\mathbf{x_i}\}_{i=1}^N$ with $\mathbf{x_i}\in \mathbb{R}^n$ and regressand $Z=\{z_i\}_{i=1}^N$ with $z_i\in \mathbb{R}$. The task is to fit a linear model and learn a predictor function $Z(X)=X\boldsymbol\alpha+\boldsymbol\epsilon$ ($\boldsymbol\epsilon$ represents error in observations). The optimal coefficient vector $\boldsymbol\alpha$ is usually obtained by the Least Squares method. For feature selection, the task is to therefore select a subset of the features which are expressed as $\varphi(x_j)=\{x_{i,j}\}_{i=1}^N$ where $x_{i,j}$ is the $j^{\text{th}}$ entry in the feature vector $\mathbf{x_i}$. If the regressors $X$ is represented as a $N\times n$ matrix, then the columns of $X$ correspond to the features $\varphi(x_j)$. A feature selection algorithm then selects a subset of its columns, $S\in\mathbb{R}^{N\times k}$ ($k\le n$), in order to fit the linear predictor $Z(S')=S\boldsymbol\alpha + \boldsymbol\epsilon$. In \citealp{Das:2008:ASS:1374376.1374384} it is shown that using squared multiple correlation or $R^2$, a multiplicative approximation guarantee can be provided for the feature selection task in such setting. It is also established in the same work that this objective function is robust in presence of perturbation in training data which makes it a desired candidate for feature selection problem for linear regression.
+
+\subsection{$R^2$ objective function}
+\label{subsection:rsq}
+The task here is to minimize mean-squared prediction error $\mathbb{E}[Z-Z'(S))^2]$ while selecting a subset $S\subseteq X$. This is equivalent to maximizing the squared multiple correlation $R^2=\frac{\text{Var}(Z)-\mathbb{E}[(Z-Z'(S))^2]}{\text{Var}(Z)}$. This measure is widely used for a goodness-of-fit measure. Therefore the following objective function for feature selection is known to be a good candidate.
+\[
+ \operatorname*{arg\,max}_{S:|S|\le k} R^2(S)
+\]
+
+\noindent If we assume that the samples are normalized to have null mean and unit variance then $R^2=1-\mathbb{E}[(Z-Z'(S))^2]=1-||Z-Z'(S)||_2^2$. Let us consider the covariance matrix $C$ with $C_{i,j}=\text{Cov}(X_i,X_j)$ and $\mathbf{b}$ with $b_j=\text{Cov}(Z,X_j)$. Let $C_S$ and $\mathbf{b}_S$ be the sub-matrices with rows and columns corresponding to the set $S\subseteq X$ when the regressors and regressand have unit $l_2$-norm. It can be shown that $R^2=\mathbf{b}_S(C_S)^{-1}\mathbf{b}_S$. In the following, we review some of the results provided in \citealp{Das:2008:ASS:1374376.1374384} and \citealp{DasDK11} which establishes the fact that $R^2$ is a good candidate for objective function in feature selection for linear regression.
+
+\begin{lemma}
+ Let's assume that the $k\times k$ sub-matrix of the covariance matrix, $C_S$ is non-singular. Let $\kappa$ denote the condition number for $C_S$ where condition number of a matrix $A$ is defined as $\kappa=||A||_2||A^{-1}||_2$. If $E\in \mathbb{R}^{k\times k}$ is the error matrix with $\delta=\max_{i,j}(E_{i,j})\le \frac{1}{4\kappa k}$, then
+ \[
+ \frac{|\mathbf{b}_S^T C_S^{-1} \mathbf{b}_S - \mathbf{b}_S^T (C_S+E)^{-1} \mathbf{b}_S|}{|\mathbf{b}_S^T C_S^{-1} \mathbf{b}_S|}\le \frac{4}{3}\kappa^2 k \delta
+ \]
+\end{lemma}
+
+\noindent This result shows that as long as we have small perturbation in the covariance matrix, if the matrix is sufficiently well-conditioned, then the changes in $R^2$ objective function is small. This shows the robustness of the $R^2$ objective to perturbation in regressors.
+
+$R^2$ is a set function which is monotone non-decreasing and non-negative. But it is not submodular in general. In \citealp{Das:2008:ASS:1374376.1374384} it has been established that in absence of suppressor variables (which shadows the correlation of another variable with the regressand), $R^2$ becomes submodular, as stated by the following theorem.
+
+\begin{theorem}
+ In absence of suppressor variables in any $S\subseteq X$, $R^2$ objective function becomes submodular and hence one can achieve a multiplicative optimization guarantee of $(1-\frac{1}{e})$ via Forward Regression algorithm as proposed by \citealp{nemhauser1978analysis}.
+\end{theorem}
+
+\noindent However, this condition is somewhat strict and therefore we can define a submodularity ratio for $R^2$ and search for approximate submodularity. The submodularity ratio for $R^2$ is defined as
+\[
+ \gamma_{X,k}=\min_{L\subseteq X, S:|S|\le k, S\cap L=\emptyset}\frac{\sum_{x\in S}R^2_{L\cup\{x\}}-R^2_L}{R^2_{L\cup S}-R^2_L}=\min_{L\subseteq X, S:|S|\le k, S\cap L=\emptyset}\frac{(\mathbf{b}_S^L)^T\mathbf{b}_S^L}{(\mathbf{b}_S^L)^T(C_S^L)^{-1}\mathbf{b}_S^L}
+\]
+
+\noindent where $C_S^L$ and $\mathbf{b}_S^L$ are covariance matrix and covariance vector for the corresponding entries in $S$ and $L$. The following lemma from \citealp{DasDK11} shows that the submodularity ratio is bounded below by the smallest eigenvalue in the covariance matrix.
+
+\begin{lemma}
+ Let's assume that the smallest eigenvalue of the covariance matrix $C$ is $\lambda_{\min}$. Then $\gamma_{X,k}\ge \lambda_{\min}$.
+\end{lemma}
+
+\noindent Since the covariance matrix is positive semi-definite, $\lambda_{\min}$ is always non-negative. In practice, the submodularity ratio for $R^2$ is close to $1$ for sufficiently well-conditioned covariance matrices and therefore $R^2$ objective is claimed to be approximately submodular. Thus, by theorem \ref{thm:optimality}, one can achieve, by simple forward selection algorithm, an optimality guarantee of $(1-e^{-\gamma_{S_{\text{FR}},k}})\ge(1-e^{-\lambda_{\min}})$.
+
+\section{Diversity promoting regularizers}
+\label{section:diversity}
+Selecting the features as diverse as possible is often desired. First simple reason is that, it increases the interpretability of the selected features. Secondly, and most importantly, as \citealp{NIPS2012_4689} established, diverse features can make the task resistant to noise in the training data. The following objective function is used in \citealp{NIPS2012_4689} for diverse feature selection task.
+\[
+ \operatorname*{arg\,max}_{S:|S|\le k} g(S) = R^2(S) + \nu f(S)
+\]
+where $k>0$ and $S\subseteq X$ and $\nu\ge 0$ is regularization constant and $f(S)$ is some diversity promoting set function. The term diversity is not uniquely defined and therefore they have used the following notion of diversity : For a fixed $k$
+\begin{enumerate}
+ \item $f(S)$ is maximized when $S$ is an orthogonal set of vectors (full rank)
+ \item $f(S)$ is minimized when the rank of the matrix $S$ is the lowest
+\end{enumerate}
+
+\noindent They have designed three such diversity promoting regularizers which are non-negative and submodular, out of which two are non-monotone in general. Because of the $R^2$ set function in the objective, the function $g(S)$ is not submodular. However, the following proposition shows that the submodularity ratio of $g(S)$ is bounded below by the submodularity ratio of $R^2$.
+
+\begin{lemma}
+ Let $f(S)$ be a non-negative submodular set function (monotone or non-monotone). Then for $g(S)=R^2(S)+f(S)$, the submodularity ratio 
+ \[\gamma_{X,k}(g)\ge \gamma_{X,k}(R^2)\ge \lambda_{\min}\]
+ where $\lambda_{\min}$ is the smallest eigenvalue of the covariance matrix $C$.
+\end{lemma}
+
+\noindent Next, we review the optimality guarantee for using such regularizers in the non-monotone case. 
+
+\begin{theorem}
+ There exists a greedy local search algorithm for the objective function $g(S)$ with non-negative non-monotone submodular regularizers which obtains an approximation guarantee of $\frac{1-e^{-\frac{\gamma_{\hat{S},2k}(g)}{2}}}{2+(1-e^{-\frac{\gamma_{\hat{S},2k}(g)}{2}})(4+4\epsilon/n)}$ for some $\epsilon\ge 0$.
+\end{theorem}
+
+\noindent In the next two section, we review the \emph{non-monotone}, \emph{submodular} regularizers used in \citealp{NIPS2012_4689}.
+
+\subsection{Smoothed differential entropy regularizer}
+For some set $S$ with $|S|\le k$, the smoothed differential entropy regularizer is defined as
+\[f_{\text{de}}(S)=\sum_{i=1}^{|S|} \log_2(\delta + \lambda_i(C_S))-3k \log_2 \delta\]
+where $\delta\ge 0$ is a smoothing constant and $\lambda_i(C_S)$ are the eigenvalues of the covariance sub-matrix $C_S$. 
+
+\subsection{Spectral variance regularizer}
+For some set $S$ with $|S|\le k$, the spectral variance regularizer is defined as
+\[f_{\text{sv}}(S)=9k^2-\sum_{i=1}^{|S|} (\lambda_i(C_S)-1)^2\]
+where $\lambda_i(C_S)$ are the eigenvalues of the covariance sub-matrix $C_S$ as before.
+
+None of the above two regularizers are monotone in general and yet they perform extremely well for selecting diverse features and show promising robustness to perturbation in training data (both the regressors and the regressand). In the greedy local search algorithm (GLS) mentioned above (see section \ref{section:gls} for the algorithm description), \citealp{NIPS2012_4689} used a comparatively expensive local search algorithm based on \citealp{Feige:2011:MNS:2079073.2079078} along with the forward regression algorithm in order to prove the optimality. A linear time local search exists for exact submodular objectives presented in \citealp{Buchbinder:2012:TLT:2417500.2417835}. This serves for the motivation for finding optimality guarantee in using that algorithm for approximately submodular objective functions with non-monotone diversity promoting regularizers such as the ones used in \citealp{NIPS2012_4689}.
